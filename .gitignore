@@ -1,5 +1,6 @@
 .metadata
+!/**/.keep*
 /**/src-gen
 /**/xtend-gen
 /**/bin
-!/**/.keep*
+
