@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.moflon.ide.mosl.core
+Bundle-SymbolicName: de.tu.darmstadt.es.xtext.utils;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.ui,
+ org.eclipse.emf.ecore,
+ org.apache.log4j,
+ org.eclipse.ui
+Export-Package: de.tu.darmstadt.es.xtext.utils.exceptions,
+ de.tu.darmstadt.es.xtext.utils.scoping,
+ de.tu.darmstadt.es.xtext.utils.scoping.utils,
+ de.tu.darmstadt.es.xtext.utils.ui.highlighting,
+ de.tu.darmstadt.es.xtext.utils.ui.highlighting.exceptions,
+ de.tu.darmstadt.es.xtext.utils.ui.highlighting.rules,
+ de.tu.darmstadt.es.xtext.utils.ui.highlighting.utils,
+ de.tu.darmstadt.es.xtext.utils.utils
+

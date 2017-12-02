@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package 
+			uri = "http://www.tu.de/darmstadt/es/KappaLite"
+			class = "de.tu.darmstadt.es.kappaLite.KappaLitePackage"
+			genModel = "model/generated/KappaLite.genmodel" />
+	</extension>
+</plugin>

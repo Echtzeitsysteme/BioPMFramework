@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kappaLite" nsURI="http://www.tu.de/darmstadt/es/KappaLite" nsPrefix="kappaLite">
+  <eClassifiers xsi:type="ecore:EClass" name="KLIFile">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//KLIFileElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIFileElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIInit" eSuperTypes="#//KLIFileElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="number" eType="#//KLICallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agentConfig" eType="#//KLIAgentDescription"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIAgent" eSuperTypes="#//KLIFileElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//KLISiteContainer"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLISiteContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//KLISite" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLISite">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" upperBound="-1"
+        eType="#//KLIState" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIRule" eSuperTypes="#//KLIFileElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" eType="#//KLIDescriptionContainer"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="biDirectional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//KLIDescriptionContainer"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lrating" eType="#//KLICallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rrating" eType="#//KLICallExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIDescriptionContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agents" upperBound="-1"
+        eType="#//KLIAgentDescription" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIAgentDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" eType="#//KLIAgent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//KLISiteDescription" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLISiteDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="site" eType="#//KLISite"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internalStates" upperBound="-1"
+        eType="#//KLIStateDescription" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//KLIConnection"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIStateDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//KLIState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIConnection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIVariable" eSuperTypes="#//KLIFileElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//KLIExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KLICallExpression" eSuperTypes="#//KLIExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIMathExpression" eSuperTypes="#//KLIExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lExpr" eType="#//KLICallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rExpr" eType="#//KLIExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLILiteralExpression" eSuperTypes="#//KLICallExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIIntegerLiteralExpression" eSuperTypes="#//KLILiteralExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIDecimalLiteralExpression" eSuperTypes="#//KLILiteralExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIVariableExpression" eSuperTypes="#//KLICallExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//KLIVariable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIAgentDescriptionExpression" eSuperTypes="#//KLIExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//KLIAgentDescription"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

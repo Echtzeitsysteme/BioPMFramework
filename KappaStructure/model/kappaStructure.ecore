@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kappaStructure" nsURI="http://www.es.tu-darmstadt.de/KappaStructure"
+    nsPrefix="kappaStructure">
+  <eClassifiers xsi:type="ecore:EClass" name="Agent" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contained" eType="#//KappaContainer"
+        eOpposite="#//KappaContainer/agents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//Site" containment="true" eOpposite="#//Site/agent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KappaContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agents" upperBound="-1"
+        eType="#//Agent" containment="true" eOpposite="#//Agent/contained"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Site" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" eType="#//Agent"
+        eOpposite="#//Agent/sites"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
+        eType="#//InternalState" containment="true" eOpposite="#//InternalState/site"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connectedWith" upperBound="-1"
+        eType="#//Site"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalState" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="site" eType="#//Site" eOpposite="#//Site/states"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

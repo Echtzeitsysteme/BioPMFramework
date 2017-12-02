@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: de.tu.darmstadt.es.KappaLite.ui
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: de.tu.darmstadt.es.KappaLite.ui;singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: de.tu.darmstadt.es.KappaLite,
+ de.tu.darmstadt.es.KappaLite.ide,
+ org.eclipse.xtext.ui,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.ui.codetemplates.ui,
+ org.eclipse.ui.editors;bundle-version="3.5.0",
+ org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui,
+ org.eclipse.compare,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtend.lib;resolution:=optional,
+ org.apache.log4j,
+ org.eclipse.xtext.xbase.lib,
+ de.tu.darmstadt.es.xtext.utils
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.tu.darmstadt.es.ui.quickfix,
+ de.tu.darmstadt.es.ui.contentassist,
+ de.tu.darmstadt.es.KappaLite.ui.internal
+Bundle-Activator: de.tu.darmstadt.es.KappaLite.ui.internal.KappaLiteActivator
+Import-Package: org.apache.log4j
