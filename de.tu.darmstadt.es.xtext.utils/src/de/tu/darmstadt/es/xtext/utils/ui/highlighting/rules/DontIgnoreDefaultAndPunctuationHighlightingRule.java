@@ -4,13 +4,15 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.nodemodel.INode;
 
+import de.tu.darmstadt.es.xtext.utils.ui.highlighting.AbstractHighlightProviderController;
 import de.tu.darmstadt.es.xtext.utils.ui.highlighting.AbstractHighlightingConfiguration;
 import de.tu.darmstadt.es.xtext.utils.ui.highlighting.AbstractTokenMapper;
 
 public class DontIgnoreDefaultAndPunctuationHighlightingRule extends AbstractIgnoreHighlightingRule {
 
-	public DontIgnoreDefaultAndPunctuationHighlightingRule() {
-		super("DontIgnoreDefault", "An Ignore Highlighting Rule");
+public DontIgnoreDefaultAndPunctuationHighlightingRule(AbstractHighlightProviderController controller) {
+		super("DontIgnoreDefault", "An Ignore Highlighting Rule", controller);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

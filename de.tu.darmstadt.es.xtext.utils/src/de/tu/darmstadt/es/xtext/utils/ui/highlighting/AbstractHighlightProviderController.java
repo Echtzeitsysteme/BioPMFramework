@@ -25,11 +25,12 @@ public abstract class AbstractHighlightProviderController {
 	private AbstractHighlightingConfiguration config;
 	
 	public AbstractHighlightProviderController(AbstractHighlightFactory rulesFactory) {
+	   init(rulesFactory);
 	   this.config = createConfig();
 	   this.colorManager = config.getColorManager();
-	   init(rulesFactory);
 	   semanticCalculator = this.createtSemanticHighlightingCalculator();
 	   AbstractSemanticHighlightingCalculator.setController(this);
+	   
 	}
 	
 	protected abstract AbstractHighlightingConfiguration createConfig();
@@ -39,6 +40,7 @@ public abstract class AbstractHighlightProviderController {
 	public void init(AbstractHighlightFactory rulesFactory){
 		rules.clear();
 		ruleNames.clear();
+		rulesFactory.setController(this);
 		rulesFactory.createAllInstances();
 		rules.sort(getComparator());
 	}
@@ -49,6 +51,7 @@ public abstract class AbstractHighlightProviderController {
 		else{
 			rules.add(rule);
 			ruleNames.add(rule.getID());
+			AbstractHighlightingConfiguration.addModularConfig(rule);
 		}
 	}
 	

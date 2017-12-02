@@ -7,7 +7,10 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
 import org.eclipse.xtext.ui.editor.utils.TextStyle;
 
-public abstract class AbstractHighlightingRule{
+import de.tu.darmstadt.es.xtext.utils.ui.highlighting.AbstractHighlightProviderController;
+import de.tu.darmstadt.es.xtext.utils.ui.highlighting.exceptions.IDAlreadyExistException;
+
+public abstract class AbstractHighlightingRule implements IModularConfiguration{
 
 	protected Logger logger;
 	
@@ -15,31 +18,32 @@ public abstract class AbstractHighlightingRule{
 	
 	protected String description;
 	
+	protected AbstractHighlightProviderController controller;
+	
 	private int prio=50;
 	
-	private IHighlightedPositionAcceptor acceptor;
-	
-	public AbstractHighlightingRule(String id, String description){
-		init(id, description);
+	public AbstractHighlightingRule(String id, String description, AbstractHighlightProviderController controller){
+		init(id, description, controller);
 	}
 	
-	public AbstractHighlightingRule(String id, String description, int prio){
+	public AbstractHighlightingRule(String id, String description, AbstractHighlightProviderController controller, int prio){
 		this.prio = prio;
-		init(id, description);
+		init(id, description, controller);
 	}
 	
-	private void init(String id, String description){
+	private void init(String id, String description, AbstractHighlightProviderController controller){
 		logger = Logger.getLogger(this.getClass());
 		this.id = id;
 		this.description = description;
-//		try {
-////			MOSLHighlightProviderController.addHighlightRule(this);
-//		} catch (IDAlreadyExistException e) {
-//         LogUtils.error(logger, e);
-//		}
+		this.controller = controller;
+		try {
+			this.controller.addHighlightRule(this);
+		} catch (IDAlreadyExistException e) {
+			logger.error("ID already exist", e);
+		}
 	}
 	
-	protected void setHighlighting(INode node){
+	protected void setHighlighting(INode node, IHighlightedPositionAcceptor acceptor){
 		acceptor.addPosition(node.getOffset(), node.getLength() , id);
 	}
 	
@@ -53,8 +57,7 @@ public abstract class AbstractHighlightingRule{
 	public boolean canProvideHighlighting(EObject moslObject, INode node, IHighlightedPositionAcceptor acceptor){
 		boolean provide = getHighlightingConditions(moslObject, node);
 		if(provide){
-			this.acceptor = acceptor;
-			setHighlighting(node);
+			setHighlighting(node, acceptor);
 		}
 		return provide;
 	}

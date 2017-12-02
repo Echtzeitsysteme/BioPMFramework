@@ -4,8 +4,6 @@
 package de.tu.darmstadt.es.ui
 
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
-import com.google.inject.Binder;
-import de.tu.darmstadt.es.ui.highlighting.KappaLiteSemanticHighlightingCalculator
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
@@ -13,8 +11,4 @@ import de.tu.darmstadt.es.ui.highlighting.KappaLiteSemanticHighlightingCalculato
 @FinalFieldsConstructor
 class KappaLiteUiModule extends AbstractDefaultKappaLiteUiModule {
 	
-	override def configure(Binder binder){
-		controller.bind(binder, KappaLiteSemanticHighlightingCalculator, null)
-		super.configure(binder)
-	}
 }

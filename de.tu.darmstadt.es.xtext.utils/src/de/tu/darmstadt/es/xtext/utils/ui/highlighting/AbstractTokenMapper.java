@@ -2,12 +2,8 @@ package de.tu.darmstadt.es.xtext.utils.ui.highlighting;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
 import org.eclipse.xtext.ide.editor.syntaxcoloring.DefaultAntlrTokenToAttributeIdMapper;
 import org.eclipse.xtext.util.Arrays;
-
-import com.google.inject.Inject;
 
 public  abstract class AbstractTokenMapper extends DefaultAntlrTokenToAttributeIdMapper {
 
@@ -16,17 +12,13 @@ public  abstract class AbstractTokenMapper extends DefaultAntlrTokenToAttributeI
 		init();
 	}
 	
-	
-	protected abstract <TokenMapper extends AbstractTokenMapper> TokenMapper create();
-	
 	private void init() {
 		mappedTokens.clear();		
 	}
 
-	private static Map<String, String> mappedTokens = new HashMap<>();
+	protected static Map<String, String> mappedTokens = new HashMap<>();
 	
-	@Inject
-	AbstractTokenMapper mapper = this.create();
+
 	
 	private static final String[] delemiters = {":","{","}","(",")"};
 	
