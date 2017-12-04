@@ -1,3 +1,3 @@
-# KappaLite
+# NeoKappa
 
 
