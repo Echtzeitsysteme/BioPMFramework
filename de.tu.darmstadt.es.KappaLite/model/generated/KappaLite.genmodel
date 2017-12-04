@@ -13,9 +13,7 @@
     <genClasses ecoreClass="KappaLite.ecore#//KLINamedFileElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLINamedFileElement/name"/>
     </genClasses>
-    <genClasses ecoreClass="KappaLite.ecore#//KLIGeoLocation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIGeoLocation/locationDecription"/>
-    </genClasses>
+    <genClasses ecoreClass="KappaLite.ecore#//KLIGeoLocation"/>
     <genClasses ecoreClass="KappaLite.ecore#//KLIInit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIInit/number"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIInit/agentConfig"/>
@@ -26,7 +24,9 @@
     <genClasses ecoreClass="KappaLite.ecore#//KLICompartment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLICompartment/shape"/>
     </genClasses>
-    <genClasses ecoreClass="KappaLite.ecore#//KLILocation"/>
+    <genClasses ecoreClass="KappaLite.ecore#//KLILocation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocation/locationDecription"/>
+    </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLILocationDecription">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocationDecription/x"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocationDecription/y"/>

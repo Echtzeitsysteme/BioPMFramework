@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BiochemicalSimulationFramework
+Bundle-SymbolicName: de.tu.darmstadt.es.biochemicalSimulationFramework;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: de.tu.darmstadt.es.biochemicalSimulationFramework,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.geolibrary,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.modification,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.persistence,
+ de.tu.darmstadt.es.biochemicalSimulationFramework.splitter

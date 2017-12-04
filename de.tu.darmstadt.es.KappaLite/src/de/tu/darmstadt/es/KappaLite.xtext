@@ -14,7 +14,7 @@ KLIInit:'%init:' number = KLICallExpression agentConfig = KLIDescriptionContaine
 
 KLIAgent:'%agent:' name = ID container = KLISiteContainer;
 
-KLICompartment:'%compartment:' name = ID shape=SHAPE locationDecription=KLILocationDecription;
+KLICompartment:'%compartment:' name = ID shape=SHAPE;
 
 KLILocation:'%location:' name = ID locationDecription=KLILocationDecription;
 

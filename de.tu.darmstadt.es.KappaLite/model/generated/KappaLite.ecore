@@ -9,10 +9,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="KLINamedFileElement" eSuperTypes="#//KLIFileElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="KLIGeoLocation" eSuperTypes="#//KLINamedFileElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="locationDecription" eType="#//KLILocationDecription"
-        containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KLIGeoLocation" eSuperTypes="#//KLINamedFileElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="KLIInit" eSuperTypes="#//KLIFileElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="number" eType="#//KLICallExpression"
         containment="true"/>
@@ -26,7 +23,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="KLICompartment" eSuperTypes="#//KLIGeoLocation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="KLILocation" eSuperTypes="#//KLIGeoLocation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="KLILocation" eSuperTypes="#//KLIGeoLocation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="locationDecription" eType="#//KLILocationDecription"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KLILocationDecription">
     <eStructuralFeatures xsi:type="ecore:EReference" name="x" eType="#//KLICoordinate"
         containment="true"/>
