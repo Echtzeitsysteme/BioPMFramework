@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/de.tu.darmstadt.es.geolibrary.MetaSpecification/src-gen"
+    creationIcons="false" editDirectory="/de.tu.darmstadt.es.geolibrary.MetaSpecification.edit/src-gen"
+    editorDirectory="/de.tu.darmstadt.es.geolibrary.MetaSpecification.editor/src-gen"
+    modelPluginID="de.tu.darmstadt.es.geolibrary.MetaSpecification" modelName="MetaSpecification"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>MetaSpecification.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="MetaSpecification" basePackage="de.tu.darmstadt.es.geolibrary"
+      disposableProviderFactory="true" ecorePackage="MetaSpecification.ecore#/">
+    <genClasses ecoreClass="MetaSpecification.ecore#//RuleSpec">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//RuleSpec/root"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//RuleSpec/agentSpecs"/>
+    </genClasses>
+    <genClasses ecoreClass="MetaSpecification.ecore#//MetaSpecRoot">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//MetaSpecRoot/ruleSpecs"/>
+    </genClasses>
+    <genClasses ecoreClass="MetaSpecification.ecore#//NamedSpecElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MetaSpecification.ecore#//NamedSpecElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="MetaSpecification.ecore#//Location">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MetaSpecification.ecore#//Location/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MetaSpecification.ecore#//Location/y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MetaSpecification.ecore#//Location/z"/>
+    </genClasses>
+    <genClasses ecoreClass="MetaSpecification.ecore#//Shape"/>
+    <genClasses ecoreClass="MetaSpecification.ecore#//AgentSpec">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//AgentSpec/ruleSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//AgentSpec/shape"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//AgentSpec/siteSpecs"/>
+    </genClasses>
+    <genClasses ecoreClass="MetaSpecification.ecore#//Sphere"/>
+    <genClasses ecoreClass="MetaSpecification.ecore#//Ellipse"/>
+    <genClasses ecoreClass="MetaSpecification.ecore#//Cylinder"/>
+    <genClasses ecoreClass="MetaSpecification.ecore#//SiteSpec">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//SiteSpec/agentSpec"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MetaSpecification.ecore#//SiteSpec/location"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

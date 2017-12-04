@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="MetaSpecification" nsURI="http://www.tu-darmstadt.es.de/MetaSpecification"
+    nsPrefix="MetaSpecification">
+  <eClassifiers xsi:type="ecore:EClass" name="RuleSpec" eSuperTypes="#//NamedSpecElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" lowerBound="1" eType="#//MetaSpecRoot"
+        eOpposite="#//MetaSpecRoot/ruleSpecs"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agentSpecs" upperBound="-1"
+        eType="#//AgentSpec" containment="true" eOpposite="#//AgentSpec/ruleSpec"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaSpecRoot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSpecs" upperBound="-1"
+        eType="#//RuleSpec" containment="true" eOpposite="#//RuleSpec/root"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedSpecElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Location">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="x" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="z" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Shape" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AgentSpec" eSuperTypes="#//NamedSpecElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ruleSpec" lowerBound="1"
+        eType="#//RuleSpec" eOpposite="#//RuleSpec/agentSpecs"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="shape" eType="#//Shape"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="siteSpecs" upperBound="-1"
+        eType="#//SiteSpec" containment="true" eOpposite="#//SiteSpec/agentSpec"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Sphere" eSuperTypes="#//Shape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Ellipse" eSuperTypes="#//Shape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Cylinder" eSuperTypes="#//Shape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SiteSpec" eSuperTypes="#//NamedSpecElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agentSpec" lowerBound="1"
+        eType="#//AgentSpec" eOpposite="#//AgentSpec/siteSpecs"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="location" eType="#//Location"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

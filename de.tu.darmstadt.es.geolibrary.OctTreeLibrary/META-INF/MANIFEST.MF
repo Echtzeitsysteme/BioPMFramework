@@ -4,5 +4,6 @@ Bundle-Name: OctTreeLibrary
 Bundle-SymbolicName: de.tu.darmstadt.es.geolibrary.OctTreeLibrary;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework;bundle-version="1.0.0"
+Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework,
+ de.tu.darmstadt.es.geolibrary.MetaSpecification
 Export-Package: de.tu.darmstadt.es.geolibrary.octTreeLibrary
