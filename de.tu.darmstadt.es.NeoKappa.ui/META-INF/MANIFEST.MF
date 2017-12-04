@@ -23,5 +23,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.tu.darmstadt.es.ui.quickfix,
  de.tu.darmstadt.es.ui.contentassist,
  de.tu.darmstadt.es.NeoKappa.ui.internal
-Bundle-Activator: de.tu.darmstadt.es.KappaLite.ui.internal.NeoKappaActivator
+Bundle-Activator: de.tu.darmstadt.es.NeoKappa.ui.internal.NeoKappaActivator
 Import-Package: org.apache.log4j

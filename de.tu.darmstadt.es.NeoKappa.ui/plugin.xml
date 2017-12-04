@@ -7,7 +7,7 @@
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
 			contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
 			default="true"
-			extensions="kli"
+			extensions="nka"
 			id="de.tu.darmstadt.es.NeoKappa"
 			name="NeoKappa Editor">
 		</editor>
@@ -209,13 +209,13 @@
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
-			type="kli">
+			type="nka">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
 		<resourceServiceProvider
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
-			uriExtension="kli">
+			uriExtension="nka">
 		</resourceServiceProvider>
 	</extension>
 	<!-- marker definitions for de.tu.darmstadt.es.NeoKappa -->
@@ -243,7 +243,7 @@
 	<extension point="org.eclipse.xtext.builder.participant">
 		<participant
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
-			fileExtensions="kli"/>
+			fileExtensions="nka"/>
 	</extension>
 	<extension point="org.eclipse.ui.preferencePages">
 		<page
@@ -386,24 +386,24 @@
 	<extension point="org.eclipse.compare.contentViewers">
 		<viewer id="de.tu.darmstadt.es.NeoKappa.compare.contentViewers"
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-			extensions="kli">
+			extensions="nka">
 		</viewer>
 	</extension>
 	<extension point="org.eclipse.compare.contentMergeViewers">
 		<viewer id="de.tu.darmstadt.es.NeoKappa.compare.contentMergeViewers"
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.ui.compare.InjectableViewerCreator"
-			extensions="kli" label="NeoKappa Compare">
+			extensions="nka" label="NeoKappa Compare">
 		</viewer>
 	</extension>
 	<extension point="org.eclipse.ui.editors.documentProviders">
 		<provider id="de.tu.darmstadt.es.NeoKappa.editors.documentProviders"
 			class="de.tu.darmstadt.es.ui.NeoKappaExecutableExtensionFactory:org.eclipse.xtext.ui.editor.model.XtextDocumentProvider"
-			extensions="kli">
+			extensions="nka">
 		</provider>
 	</extension>
 	<extension point="org.eclipse.team.core.fileTypes">
 		<fileTypes
-			extension="kli"
+			extension="nka"
 			type="text">
 		</fileTypes>
 	</extension>
