@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="de.tu.darmstadt.es.NeoKappa.feature"
+      label="NeoKappa Feature"
+      version="1.0.0.qualifier">
+
+   <plugin
+         id="de.tu.darmstadt.es.NeoKappa"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.NeoKappa.ide"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.NeoKappa.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="neoKappa" nsURI="http://www.tu.de/darmstadt/es/NeoKappa" nsPrefix="neoKappa">
+  <eClassifiers xsi:type="ecore:EClass" name="NKAFile">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//NKAFileElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAFileElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NKANamedFileElement" eSuperTypes="#//NKAFileElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAGeoLocation" eSuperTypes="#//NKANamedFileElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAInit" eSuperTypes="#//NKAFileElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="number" eType="#//NKACallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agentConfig" eType="#//NKADescriptionContainer"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAAgent" eSuperTypes="#//NKANamedFileElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//NKASiteContainer"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKACompartment" eSuperTypes="#//NKAGeoLocation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKALocation" eSuperTypes="#//NKAGeoLocation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="locationDecription" eType="#//NKALocationDecription"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKALocationDecription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="x" eType="#//NKACoordinate"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="y" eType="#//NKACoordinate"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="z" eType="#//NKACoordinate"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKACoordinate">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//NKALiteralExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKASiteContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//NKASite" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKASite">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" upperBound="-1"
+        eType="#//NKAState" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKARule" eSuperTypes="#//NKANamedFileElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" eType="#//NKADescriptionContainer"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="biDirectional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" eType="#//NKADescriptionContainer"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lrating" eType="#//NKACallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rrating" eType="#//NKACallExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKADescriptionContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agents" upperBound="-1"
+        eType="#//NKAAgentDescription" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAAgentDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" eType="#//NKAAgent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//NKACompartment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sites" upperBound="-1"
+        eType="#//NKASiteDescription" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKASiteDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="site" eType="#//NKASite"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//NKALocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internalStates" upperBound="-1"
+        eType="#//NKAStateDescription" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//NKAConnection"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAStateDescription">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//NKAState"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAConnection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="connectionNumber" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAVariable" eSuperTypes="#//NKANamedFileElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expr" eType="#//NKAExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NKACallExpression" eSuperTypes="#//NKAExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAMathExpression" eSuperTypes="#//NKAExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lExpr" eType="#//NKACallExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rExpr" eType="#//NKAExpression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKALiteralExpression" eSuperTypes="#//NKACallExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAIntegerLiteralExpression" eSuperTypes="#//NKALiteralExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKADecimalLiteralExpression" eSuperTypes="#//NKALiteralExpression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAVariableExpression" eSuperTypes="#//NKACallExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//NKAVariable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NKAAgentDescriptionExpression" eSuperTypes="#//NKAExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//NKADescriptionContainer"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

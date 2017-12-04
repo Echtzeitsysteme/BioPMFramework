@@ -1,0 +1,74 @@
+grammar de.tu.darmstadt.es.NeoKappa with org.eclipse.xtext.common.Terminals
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+generate neoKappa "http://www.tu.de/darmstadt/es/NeoKappa"
+
+NKAFile:elements += NKAFileElement*;
+
+NKAFileElement: NKAInit | NKANamedFileElement;
+
+NKANamedFileElement:NKAAgent | NKARule | NKAVariable | NKAGeoLocation;
+
+NKAGeoLocation:NKALocation | NKACompartment;
+
+NKAInit:'%init:' number = NKACallExpression agentConfig = NKADescriptionContainer;
+
+NKAAgent:'%agent:' name = ID container = NKASiteContainer;
+
+NKACompartment:'%compartment:' name = ID shape=SHAPE;
+
+NKALocation:'%location:' name = ID locationDecription=NKALocationDecription;
+
+NKALocationDecription:x=NKACoordinate y=NKACoordinate z=NKACoordinate;
+
+NKACoordinate:'[' position = NKALiteralExpression ']';
+
+NKASiteContainer:'(' sites += NKASite (',' sites+=NKASite)* ')';
+
+NKASite:name = ID container+=NKAState*;
+
+NKAState: '~' name = ID;
+
+NKARule: "'"name = ID "'" (lhs = NKADescriptionContainer)? ((biDirectional ?= '<->' (rhs = NKADescriptionContainer)? (('@' lrating=NKACallExpression) (',' rrating=NKACallExpression)?|  ('@' ',' rrating=NKACallExpression))?) | ('->' (rhs = NKADescriptionContainer)? ('@' rrating=NKACallExpression)?));
+
+NKADescriptionContainer:agents += NKAAgentDescription (',' agents += NKAAgentDescription)*;
+
+NKAAgentDescription:agent = [NKAAgent] (':' position = [NKACompartment])? '(' (sites += NKASiteDescription)? (',' sites += NKASiteDescription)* ')';
+
+NKASiteDescription:site = [NKASite] (':' position = [NKALocation])? ('~' internalStates += NKAStateDescription)* (connection=NKAConnection)?;
+
+NKAStateDescription:state = [NKAState];
+
+NKAConnection:'!' connectionNumber = INT;
+
+NKAVariable:'%var:' "'"name = ID"'" expr = NKAExpression;
+
+NKAExpression: NKACallExpression | NKAMathExpression | NKAAgentDescriptionExpression;
+
+NKACallExpression:NKALiteralExpression | NKAVariableExpression;
+
+NKAMathExpression:lExpr = NKACallExpression operator=MATH_OPERATOR rExpr = NKAExpression;
+
+NKALiteralExpression:NKAIntegerLiteralExpression | NKADecimalLiteralExpression;
+
+NKAIntegerLiteralExpression: value = INT;
+
+NKADecimalLiteralExpression: value = DECIMAL;
+
+NKAVariableExpression: "'" value = [NKAVariable] "'";
+
+NKAAgentDescriptionExpression:value = NKADescriptionContainer;
+
+MATH_OPERATOR: '*' | '+' | '-' | '/';
+DECIMAL returns ecore::EDouble:INT'.'INT ;
+terminal SHAPE:'ellipse' | 'sphere' | 'cylinder';
+
+//terminals
+
+@Override 
+terminal STRING: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|"'") )* '"';
+@Override 
+terminal SL_COMMENT 	: '#' !('\n'|'\r')* ('\r'? '\n')?;
+
+//model helpers
+
+
