@@ -31,7 +31,7 @@ public class VariableHighlightingRule extends AbstractHighlightingRule {
 		else if(moslObject instanceof KLIVariableExpression)
 			variable = KLIVariableExpression.class.cast(moslObject).getValue();
 		String text = node.getText();
-		return variable != null && variable.getName().equals(text) || "'".equals(text);
+		return variable != null && (text.equals(variable.getName()) || "'".equals(text));
 	}
 
 }

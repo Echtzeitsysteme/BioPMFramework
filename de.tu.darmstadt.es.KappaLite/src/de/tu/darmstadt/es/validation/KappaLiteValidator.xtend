@@ -3,6 +3,7 @@
  */
 package de.tu.darmstadt.es.validation
 
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules. 
@@ -10,6 +11,13 @@ package de.tu.darmstadt.es.validation
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class KappaLiteValidator extends AbstractKappaLiteValidator {
+	
+	@Check 
+	def checkForDanglingConnections()
+	{
+		
+	}
+	
 	
 //	public static val INVALID_NAME = 'invalidName'
 //

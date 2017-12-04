@@ -1,6 +1,7 @@
 package de.tu.darmstadt.es.ui.highlighting;
 
 import de.tu.darmstadt.es.ui.highlighting.rules.AgentHighlightingRule;
+import de.tu.darmstadt.es.ui.highlighting.rules.GEOLocationHighlightingRule;
 import de.tu.darmstadt.es.ui.highlighting.rules.InternalStateHighlightingRule;
 import de.tu.darmstadt.es.ui.highlighting.rules.KappaRuleHighlightingRule;
 import de.tu.darmstadt.es.ui.highlighting.rules.SiteHighlightingRule;
@@ -16,6 +17,7 @@ public class KappaLiteHighlightingFactory extends AbstractHighlightFactory {
 		new InternalStateHighlightingRule(controller);
 		new KappaRuleHighlightingRule(controller);
 		new VariableHighlightingRule(controller);
+		new GEOLocationHighlightingRule(controller);
 	}
 
 }

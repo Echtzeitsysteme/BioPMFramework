@@ -2,6 +2,7 @@ package de.tu.darmstadt.es.xtext.utils.ui.highlighting.rules;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ide.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfigurationAcceptor;
@@ -55,6 +56,8 @@ public abstract class AbstractHighlightingRule implements IModularConfiguration{
 	}
 	
 	public boolean canProvideHighlighting(EObject moslObject, INode node, IHighlightedPositionAcceptor acceptor){
+		if(!moslObject.eIsProxy())
+			EcoreUtil.resolveAll(moslObject);
 		boolean provide = getHighlightingConditions(moslObject, node);
 		if(provide){
 			setHighlighting(node, acceptor);

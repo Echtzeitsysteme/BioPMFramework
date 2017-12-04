@@ -21,7 +21,7 @@ import de.tu.darmstadt.es.kappaLite.KLIState
  */
 class KappaLiteScopeProvider extends AbstractKappaLiteScopeProvider {
 	override getScope(EObject context, EReference reference) {
-		if(context instanceof KLISiteDescription){
+		if(context instanceof KLISiteDescription && reference.name === "site"){
 			val agentDes = context.eContainer as KLIAgentDescription
 			val candidates = EcoreUtil2.getAllContentsOfType(agentDes.agent, KLISite)
 			return Scopes.scopeFor(candidates)			

@@ -10,13 +10,30 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIFile/elements"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIFileElement"/>
+    <genClasses ecoreClass="KappaLite.ecore#//KLINamedFileElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLINamedFileElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaLite.ecore#//KLIGeoLocation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIGeoLocation/locationDecription"/>
+    </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIInit">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIInit/number"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIInit/agentConfig"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIAgent">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIAgent/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIAgent/container"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaLite.ecore#//KLICompartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLICompartment/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaLite.ecore#//KLILocation"/>
+    <genClasses ecoreClass="KappaLite.ecore#//KLILocationDecription">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocationDecription/x"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocationDecription/y"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLILocationDecription/z"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaLite.ecore#//KLICoordinate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLICoordinate/position"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLISiteContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLISiteContainer/sites"/>
@@ -29,7 +46,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIState/name"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIRule">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIRule/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIRule/lhs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIRule/biDirectional"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIRule/rhs"/>
@@ -41,10 +57,12 @@
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIAgentDescription">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIAgentDescription/agent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIAgentDescription/position"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIAgentDescription/sites"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLISiteDescription">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLISiteDescription/site"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLISiteDescription/position"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLISiteDescription/internalStates"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLISiteDescription/connection"/>
     </genClasses>
@@ -55,7 +73,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIConnection/connectionNumber"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIVariable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaLite.ecore#//KLIVariable/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaLite.ecore#//KLIVariable/expr"/>
     </genClasses>
     <genClasses ecoreClass="KappaLite.ecore#//KLIExpression"/>

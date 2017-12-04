@@ -23,7 +23,7 @@ public class AgentHighlightingRule extends AbstractHighlightingRule {
 	protected TextStyle getTextStyle() {
 		TextStyle ts = new TextStyle();
 		ts.setStyle(SWT.BOLD);
-		ts.setColor(controller.getColorManager().getColor(XtextColor.VIOLETT));
+		ts.setColor(controller.getColorManager().getColor(XtextColor.BLUE));
 		return ts;
 	}
 

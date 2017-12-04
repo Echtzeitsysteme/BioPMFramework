@@ -30,6 +30,12 @@ public class KappaLiteTokenMapper extends AbstractTokenMapper {
 		if("%init:".equals(trimmedTokenName)){
 			id = KappaLiteHighlightingConfiguration.INIT_DEF_ID;
 		}
+		if("%var:".equals(trimmedTokenName)){
+			id = KappaLiteHighlightingConfiguration.VARIABLE_DEF_ID;
+		}
+		if("RULE_SHAPE".equals(trimmedTokenName)) {
+			id = KappaLiteHighlightingConfiguration.NUMBER_ID;
+		}
 		
 		mappedTokens.put(trimmedTokenName, id);
 		return id;

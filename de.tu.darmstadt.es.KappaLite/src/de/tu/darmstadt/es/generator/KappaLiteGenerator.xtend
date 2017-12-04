@@ -9,6 +9,8 @@ import org.eclipse.xtext.generator.IGeneratorContext
 import de.tu.darmstadt.es.kappaLite.KLIFile
 import de.tu.darmstadt.es.utils.KappaLiteUtil
 import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.EcoreUtil2
+import de.tu.darmstadt.es.kappaLite.KLIRule
 
 /**
  * Generates code from your model files on save.
@@ -23,7 +25,9 @@ class KappaLiteGenerator extends AbstractKappaLiteGernerator {
 		if (contents.size > 0) {
 			val file = contents.get(0)
 			if (file instanceof KLIFile) {
-				val kappaContainer = converter.convert(file)
+				val ratingExprs=EcoreUtil2.eAllOfType(file, KLIRule).map[rule | rule.rrating];
+				val ratings=ratingExprs.map[expr | this.solveExpression(expr)].toList
+				val kappaContainer = this.convert(file)
 				val uri = createURIFromResource(resource, "model", "convertedKappa.xmi")
 				KappaLiteUtil.instance.save(kappaContainer,uri, resource.resourceSet)
 

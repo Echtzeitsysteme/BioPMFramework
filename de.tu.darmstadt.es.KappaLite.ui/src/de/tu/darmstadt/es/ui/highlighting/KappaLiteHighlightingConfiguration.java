@@ -13,6 +13,7 @@ public class KappaLiteHighlightingConfiguration extends AbstractHighlightingConf
 	public static String AGENT_COMMAND_ID = "agent";
 	public static String KAPPA_DELEMETERS_ID = "kappaDelemeters";
 	public static String INIT_DEF_ID = "INIT_DEF";
+	public static String VARIABLE_DEF_ID = "VARIABLE_DEF";
 	
 	@Override
 	public void configure(IHighlightingConfigurationAcceptor acceptor) {
@@ -21,6 +22,7 @@ public class KappaLiteHighlightingConfiguration extends AbstractHighlightingConf
 		acceptor.acceptDefaultHighlighting(AGENT_COMMAND_ID, "Agent Command", agendCommandTextStyle());
 		acceptor.acceptDefaultHighlighting(KAPPA_DELEMETERS_ID, "Kappa delemeters", kappaDelemeterTextStyle());
 		acceptor.acceptDefaultHighlighting(INIT_DEF_ID, "Init Definition", initTextStyle());
+		acceptor.acceptDefaultHighlighting(VARIABLE_DEF_ID, "Variable Definition", variableDefTextStyle());
 	}
 	
 	@Override
@@ -46,18 +48,18 @@ public class KappaLiteHighlightingConfiguration extends AbstractHighlightingConf
 	
 	public TextStyle kappaDelemeterTextStyle() {
 		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(colorManager.getColor(XtextColor.RED));
+		textStyle.setColor(colorManager.getColor(XtextColor.DARK_RED));
 		return textStyle;
 	}
 	
 	public TextStyle initTextStyle() {
 		TextStyle textStyle = defaultTextStyle().copy();
-		textStyle.setColor(colorManager.getColor(XtextColor.DARK_RED));
+		textStyle.setColor(colorManager.getColor(XtextColor.RED));
 		textStyle.setStyle(SWT.BOLD);
 		return textStyle;
 	}
 	
-	public TextStyle keywordTextStyle() {
+	public TextStyle variableDefTextStyle() {
 		TextStyle ts = super.keywordTextStyle();
 		ts.setStyle(SWT.ITALIC);
 		return ts;
@@ -66,7 +68,7 @@ public class KappaLiteHighlightingConfiguration extends AbstractHighlightingConf
 	public TextStyle agendCommandTextStyle() {
 		TextStyle textStyle = keywordTextStyle().copy();
 		textStyle.setStyle(SWT.ITALIC);
-		textStyle.setColor(colorManager.getColor(XtextColor.DARK_RED));
+		textStyle.setColor(colorManager.getColor(XtextColor.RED));
 		return textStyle;
 	} 
 	
