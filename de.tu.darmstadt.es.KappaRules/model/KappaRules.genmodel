@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/de.tu.darmstadt.es.KappaRules/src-gen" creationIcons="false"
+    editDirectory="/de.tu.darmstadt.es.KappaRules.edit/src-gen" editorDirectory="/de.tu.darmstadt.es.KappaRules.editor/src-gen"
+    modelPluginID="de.tu.darmstadt.es.KappaRules" modelName="KappaRules" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>KappaRules.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="KappaRules" basePackage="de.tu.darmstadt.es" disposableProviderFactory="true"
+      ecorePackage="KappaRules.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="KappaRules.ecore#//Modifier">
+      <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/PERSISTENT"/>
+      <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/CREATE"/>
+      <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/DELETE"/>
+    </genEnums>
+    <genClasses ecoreClass="KappaRules.ecore#//KappaRuleContainer">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRuleContainer/rules"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//KappaRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/container"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/source"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//KappaRule/rating"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Source">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Source/rule"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Target">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Target/rule"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//ForwardRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//ForwardRule/opposite"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//BackwardRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//BackwardRule/opposite"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//ModifiableElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//ModifiableElement/modifier"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Graph">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Graph/nodes"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Graph/edges"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Node">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/graph"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/incommingEdge"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/outgoingEdges"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/element"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Edge">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/graph"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/to"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/from"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="KappaStructure" ecorePackage="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#/">
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Agent">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Agent/contained"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Agent/sites"/>
+    </genClasses>
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaContainer/agents"/>
+    </genClasses>
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Site">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Site/agent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Site/states"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//Site/connectedWith"/>
+    </genClasses>
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//InternalState">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//InternalState/site"/>
+    </genClasses>
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaElement"/>
+  </genPackages>
+</genmodel:GenModel>

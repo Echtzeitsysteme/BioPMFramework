@@ -10,7 +10,7 @@
       <!-- @generated kappaStructure -->
       <package
             uri="http://www.es.tu-darmstadt.de/KappaStructure"
-            class="kappaStructure.KappaStructurePackage"
+            class="de.tu.darmstadt.es.kappaStructure.KappaStructurePackage"
             genModel="model/kappaStructure.genmodel"/>
    </extension>
 

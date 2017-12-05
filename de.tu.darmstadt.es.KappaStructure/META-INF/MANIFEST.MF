@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: KappaStructure
 Bundle-SymbolicName: de.tu.darmstadt.es.KappaStructure;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
@@ -10,7 +10,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.tu.darmstadt.es.KappaStructure,
  kappaStructure,
  kappaStructure.impl,
- kappaStructure.util
+ kappaStructure.util,
+ de.tu.darmstadt.es.kappaStructure,
+ de.tu.darmstadt.es.kappaStructure.impl,
+ de.tu.darmstadt.es.kappaStructure.util
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.core.runtime
 Bundle-ActivationPolicy: lazy

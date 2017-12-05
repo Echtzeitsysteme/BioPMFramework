@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.xtext.generator.AbstractGenerator;
 
-import de.tu.darmstadt.es.KappaStructure.IConverter;
+import de.tu.darmstadt.es.KappaStructure.IModelConverter;
 import de.tu.darmstadt.es.neoKappa.NKAAgent;
 import de.tu.darmstadt.es.neoKappa.NKAAgentDescription;
 import de.tu.darmstadt.es.neoKappa.NKAConnection;
@@ -32,7 +32,7 @@ import kappaStructure.KappaContainer;
 import kappaStructure.KappaStructureFactory;
 import kappaStructure.Site;
 
-public abstract class AbstractNeoKappaGernerator extends AbstractGenerator implements IConverter<NKAFile>{
+public abstract class AbstractNeoKappaGernerator extends AbstractGenerator implements IModelConverter<NKAFile>{
 
 	private Map<String, BiFunction<Double, Double, Double>> operations;
 	
