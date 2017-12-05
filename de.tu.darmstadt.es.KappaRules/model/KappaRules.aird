@@ -5,6 +5,7 @@
     <semanticResources>KappaRules.genmodel</semanticResources>
     <semanticResources>platform:/resource/de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
+    <semanticResources>platform:/resource/de.tu.darmstadt.es.KappaStructure/model/kappaStructure.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_J7q9YNm_Eee2dajx7reE_g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_KApkANm_Eee2dajx7reE_g" name="KappaRules" repPath="#_KAl5oNm_Eee2dajx7reE_g">
@@ -136,6 +137,10 @@
         <children xmi:type="notation:Node" xmi:id="_Z3mRwNnDEee2dajx7reE_g" type="2003" element="_Z3b5sNnDEee2dajx7reE_g">
           <children xmi:type="notation:Node" xmi:id="_Z3mRw9nDEee2dajx7reE_g" type="5007"/>
           <children xmi:type="notation:Node" xmi:id="_Z3mRxNnDEee2dajx7reE_g" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_w6bOANngEee06JQu5hzWmA" type="3010" element="_w6Pn0NngEee06JQu5hzWmA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_w6bOAdngEee06JQu5hzWmA" fontName="Cantarell" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_w6bOAtngEee06JQu5hzWmA"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_Z3mRxdnDEee2dajx7reE_g"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_Z3mRxtnDEee2dajx7reE_g"/>
           </children>
@@ -592,6 +597,14 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@conditionnalStyles.1/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_w6Pn0NngEee06JQu5hzWmA" name=" kappaModel : KappaContainer" tooltipText="">
+        <target xmi:type="ecore:EReference" href="KappaRules.ecore#//Graph/kappaModel"/>
+        <semanticElements xmi:type="ecore:EReference" href="KappaRules.ecore#//Graph/kappaModel"/>
+        <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_w6QO4NngEee06JQu5hzWmA" labelAlignment="LEFT" description="_sS1zINnFEee2dajx7reE_g" color="114,159,207">
+          <labelFormat>bold</labelFormat>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
+      </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_gCixENnDEee2dajx7reE_g" sourceNode="_wc2HsNnAEee2dajx7reE_g" targetNode="_Z3b5sNnDEee2dajx7reE_g">
       <target xmi:type="ecore:EClass" href="KappaRules.ecore#//Source"/>

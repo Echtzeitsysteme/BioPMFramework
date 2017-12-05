@@ -14,12 +14,4 @@
             genModel="model/KappaRules.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated KappaRules -->
-      <package
-            uri="http://www.es.tu-darmstadt.de/KappaStructure"
-            class="kappaStructure.KappaStructurePackage"
-            genModel="model/KappaRules.genmodel"/>
-   </extension>
-
 </plugin>

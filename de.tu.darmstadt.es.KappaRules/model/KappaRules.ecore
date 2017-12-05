@@ -46,6 +46,9 @@
         eType="#//Node" containment="true" eOpposite="#//Node/graph"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="edges" upperBound="-1"
         eType="#//Edge" containment="true" eOpposite="#//Edge/graph"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="kappaModel" lowerBound="1"
+        eType="ecore:EClass ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaContainer"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//ModifiableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="graph" lowerBound="1" eType="#//Graph"
@@ -55,8 +58,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingEdges" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/from"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
-        eType="ecore:EClass ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaElement"
-        containment="true"/>
+        eType="ecore:EClass ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Edge" eSuperTypes="#//ModifiableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="graph" eType="#//Graph"

@@ -8,8 +8,6 @@ import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import de.tu.darmstadt.es.neoKappa.NKAFile
 import org.eclipse.emf.common.util.URI
-import org.eclipse.xtext.EcoreUtil2
-import de.tu.darmstadt.es.neoKappa.NKARule
 import de.tu.darmstadt.es.utils.NeoKappaUtil
 
 /**
@@ -25,10 +23,10 @@ class NeoKappaGenerator extends AbstractNeoKappaGernerator {
 		if (contents.size > 0) {
 			val file = contents.get(0)
 			if (file instanceof NKAFile) {
-				val ratingExprs=EcoreUtil2.eAllOfType(file, NKARule).map[rule | rule.rrating];
-				val ratings=ratingExprs.map[expr | this.solveExpression(expr)].toList
-				val kappaContainer = this.convert(file)
-				val uri = createURIFromResource(resource, "model", "convertedKappa.xmi")
+				//val ratingExprs=EcoreUtil2.eAllOfType(file, NKARule).map[rule | rule.rrating];
+				//val ratings=ratingExprs.map[expr | this.neoKappaExpressionSolver.solveExpression(expr)].toList
+				val kappaContainer = this.ruleConverter.convert(file)
+				val uri = createURIFromResource(resource, "model", "ruleSet.xmi")
 				NeoKappaUtil.getInstance.save(kappaContainer,uri, resource.resourceSet)
 
 			}
