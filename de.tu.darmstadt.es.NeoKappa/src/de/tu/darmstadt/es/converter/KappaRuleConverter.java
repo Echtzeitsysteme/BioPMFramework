@@ -127,6 +127,7 @@ public class KappaRuleConverter {
 		Node node = KappaRulesFactory.eINSTANCE.createNode();
 		node.setGraph(graph);
 		node.setElement(element);
+		node.setSymbol(element.getName() + ":" + element.eClass().getName());
 		return node;
 	}
 	
@@ -134,6 +135,7 @@ public class KappaRuleConverter {
 		Edge edge = KappaRulesFactory.eINSTANCE.createEdge();
 		edge.setFrom(from);
 		edge.setTo(to);
+		edge.setSymbol(from.getSymbol() + " -> " +to.getSymbol() );
 		return edge;
 	}
 }
