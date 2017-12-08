@@ -15,6 +15,8 @@
         containment="true" eOpposite="#//Target/rule"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rating" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
         defaultValueLiteral="1.0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
+        eType="#//Mapping" containment="true" eOpposite="#//Mapping/rule"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Source" eSuperTypes="#//Graph">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//KappaRule"
@@ -33,13 +35,14 @@
         eOpposite="#//ForwardRule/opposite"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Modifier">
-    <eLiterals name="PERSISTENT"/>
+    <eLiterals name="NONE"/>
     <eLiterals name="CREATE" value="1"/>
     <eLiterals name="DELETE" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifiableElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifier" lowerBound="1"
         eType="#//Modifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Graph" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
@@ -53,18 +56,27 @@
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//ModifiableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="graph" lowerBound="1" eType="#//Graph"
         eOpposite="#//Graph/nodes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="incommingEdge" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incommingEdges" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/to"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingEdges" upperBound="-1"
         eType="#//Edge" eOpposite="#//Edge/from"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
         eType="ecore:EClass ../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//KappaElement"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="indexOfElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Edge" eSuperTypes="#//ModifiableElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="graph" eType="#//Graph"
         eOpposite="#//Graph/edges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="to" lowerBound="1" eType="#//Node"
-        eOpposite="#//Node/incommingEdge"/>
+        eOpposite="#//Node/incommingEdges"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="#//Node" eOpposite="#//Node/outgoingEdges"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Mapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//KappaRule"
+        eOpposite="#//KappaRule/mappings"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceElement" lowerBound="1"
+        eType="#//ModifiableElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetElement" lowerBound="1"
+        eType="#//ModifiableElement"/>
   </eClassifiers>
 </ecore:EPackage>

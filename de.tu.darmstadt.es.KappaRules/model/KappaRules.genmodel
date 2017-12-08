@@ -13,7 +13,7 @@
   <genPackages prefix="KappaRules" basePackage="de.tu.darmstadt.es" disposableProviderFactory="true"
       ecorePackage="KappaRules.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="KappaRules.ecore#//Modifier">
-      <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/PERSISTENT"/>
+      <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/NONE"/>
       <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/CREATE"/>
       <genEnumLiterals ecoreEnumLiteral="KappaRules.ecore#//Modifier/DELETE"/>
     </genEnums>
@@ -25,6 +25,7 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/source"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//KappaRule/rating"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/mappings"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//Source">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Source/rule"/>
@@ -40,21 +41,29 @@
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//ModifiableElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//ModifiableElement/modifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//ModifiableElement/symbol"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//Graph">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Graph/nodes"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Graph/edges"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Graph/kappaModel"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//Node">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/graph"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/incommingEdge"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/incommingEdges"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/outgoingEdges"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference KappaRules.ecore#//Node/element"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//Node/indexOfElement"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//Edge">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/graph"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/to"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Edge/from"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//Mapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/rule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/sourceElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/targetElement"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

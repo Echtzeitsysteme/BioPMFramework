@@ -16,6 +16,7 @@ import de.tu.darmstadt.es.KappaRules.KappaRulesFactory;
 import de.tu.darmstadt.es.KappaRules.Node;
 import de.tu.darmstadt.es.KappaRules.Source;
 import de.tu.darmstadt.es.KappaRules.Target;
+import de.tu.darmstadt.es.KappaRules.validation.KappaRuleValidator;
 import de.tu.darmstadt.es.kappaStructure.Agent;
 import de.tu.darmstadt.es.kappaStructure.InternalState;
 import de.tu.darmstadt.es.kappaStructure.KappaElement;
@@ -25,10 +26,13 @@ import de.tu.darmstadt.es.neoKappa.NKAFile;
 import de.tu.darmstadt.es.neoKappa.NKARule;
 import de.tu.darmstadt.es.utils.NeoKappaUtil;
 
+
 public class KappaRuleConverter {
 
 	private KappaStructureConverter kappaStructureConverter = new KappaStructureConverter();
 	private NeoKappaExpressionSolver kappaExpressionSolver = new NeoKappaExpressionSolver();
+	private KappaRuleValidator kappaRuleValidator = new KappaRuleValidator();
+
 	
 	public KappaRuleContainer convert(NKAFile file) {
 		KappaRuleContainer kappaRuleContainer = KappaRulesFactory.eINSTANCE.createKappaRuleContainer();		
@@ -36,6 +40,7 @@ public class KappaRuleConverter {
 		List<List<KappaRule>> kappaRuleLists = nkaRules.parallelStream().map(this::convertRule).collect(Collectors.toList());
 		List<KappaRule> kappaRules = kappaRuleLists.parallelStream().flatMap(rules -> rules.stream()).collect(Collectors.toList());
 		kappaRuleContainer.getRules().addAll(kappaRules);
+		kappaRuleValidator.validateModification(kappaRuleContainer);
 		return kappaRuleContainer;
 	}
 	
@@ -97,6 +102,7 @@ public class KappaRuleConverter {
 	
 	private void addAgentToGraph(Graph graph, Agent agent) {
 		Node node = createNode(graph, agent);
+		node.setIndexOfElement(agent.getContained().getAgents().indexOf(agent));
 		List<Node> nodesFromSites = agent.getSites().stream().map(site -> convertSiteToNode(graph, site)).collect(Collectors.toList());
 		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other)).collect(Collectors.toList()));
 	}
@@ -104,6 +110,7 @@ public class KappaRuleConverter {
 	
 	private Node convertSiteToNode(Graph graph, Site site) {
 		Node node = createNode(graph, site);
+		node.setIndexOfElement(site.getAgent().getSites().indexOf(site));
 		List<Node> nodesFromSites = site.getStates().stream().map(state -> convertStateToNode(graph, state)).collect(Collectors.toList());
 		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other)).collect(Collectors.toList()));
 		return node;
@@ -111,6 +118,7 @@ public class KappaRuleConverter {
 	
 	private Node convertStateToNode(Graph graph, InternalState state) {
 		Node node = createNode(graph, state);
+		node.setIndexOfElement(state.getSite().getStates().indexOf(state));
 		return node;
 	}
 	
