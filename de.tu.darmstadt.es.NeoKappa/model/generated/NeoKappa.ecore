@@ -23,7 +23,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NKACompartment" eSuperTypes="#//NKAGeoLocation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NKALocation" eSuperTypes="#//NKAGeoLocation">
+  <eClassifiers xsi:type="ecore:EClass" name="NKAVector" eSuperTypes="#//NKAGeoLocation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="locationDecription" eType="#//NKALocationDecription"
         containment="true"/>
   </eClassifiers>
@@ -74,7 +74,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NKASiteDescription">
     <eStructuralFeatures xsi:type="ecore:EReference" name="site" eType="#//NKASite"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//NKALocation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="position" eType="#//NKAVector"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="internalStates" upperBound="-1"
         eType="#//NKAStateDescription" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//NKAConnection"

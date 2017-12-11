@@ -23,12 +23,14 @@ class NeoKappaGenerator extends AbstractNeoKappaGernerator {
 		if (contents.size > 0) {
 			val file = contents.get(0)
 			if (file instanceof NKAFile) {
-				//val ratingExprs=EcoreUtil2.eAllOfType(file, NKARule).map[rule | rule.rrating];
-				//val ratings=ratingExprs.map[expr | this.neoKappaExpressionSolver.solveExpression(expr)].toList
-				val kappaContainer = this.ruleConverter.convert(file)
-				val uri = createURIFromResource(resource, "model", "ruleSet.xmi")
-				NeoKappaUtil.getInstance.save(kappaContainer,uri, resource.resourceSet)
-
+				val resSet = resource.resourceSet
+				val rules = this.ruleConverter.convert(file)
+				val rulesUri = createURIFromResource(resource, "model", "ruleSet.xmi")
+				NeoKappaUtil.getInstance.save(rules, rulesUri, resSet)
+				
+				val model = this.modelConverter.convert(file)
+				val modelUri = createURIFromResource(resource, "model", "kappaModel.xmi")
+				NeoKappaUtil.instance.save(model, modelUri, resSet)
 			}
 		}
 		

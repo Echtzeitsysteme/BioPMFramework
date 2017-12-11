@@ -24,8 +24,8 @@
     <genClasses ecoreClass="NeoKappa.ecore#//NKACompartment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute NeoKappa.ecore#//NKACompartment/shape"/>
     </genClasses>
-    <genClasses ecoreClass="NeoKappa.ecore#//NKALocation">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference NeoKappa.ecore#//NKALocation/locationDecription"/>
+    <genClasses ecoreClass="NeoKappa.ecore#//NKAVector">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference NeoKappa.ecore#//NKAVector/locationDecription"/>
     </genClasses>
     <genClasses ecoreClass="NeoKappa.ecore#//NKALocationDecription">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference NeoKappa.ecore#//NKALocationDecription/x"/>

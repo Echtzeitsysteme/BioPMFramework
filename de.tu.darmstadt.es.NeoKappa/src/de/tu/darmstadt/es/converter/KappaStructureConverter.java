@@ -10,7 +10,7 @@ import de.tu.darmstadt.es.neoKappa.NKAAgentDescription;
 import de.tu.darmstadt.es.neoKappa.NKAConnection;
 import de.tu.darmstadt.es.neoKappa.NKADescriptionContainer;
 import de.tu.darmstadt.es.neoKappa.NKAFile;
-import de.tu.darmstadt.es.neoKappa.NKARule;
+import de.tu.darmstadt.es.neoKappa.NKAInit;
 import de.tu.darmstadt.es.neoKappa.NKASite;
 import de.tu.darmstadt.es.neoKappa.NKASiteDescription;
 import de.tu.darmstadt.es.neoKappa.NKAState;
@@ -23,19 +23,28 @@ import de.tu.darmstadt.es.kappaStructure.KappaStructureFactory;
 import de.tu.darmstadt.es.kappaStructure.Site;
 
 public class KappaStructureConverter implements IModelConverter<NKAFile>{
-
+	
 	@Override
 	public KappaContainer convert(NKAFile file) {
-		KappaContainer kappaContainer = KappaStructureFactory.eINSTANCE.createKappaContainer();
-		List<NKARule> rules = NeoKappaUtil.getInstance().unsortedMapToSubType(file.getElements(), NKARule.class);
-		List<List<NKAAgentDescription>> internalAgentDeses = rules.parallelStream().filter(r -> r.getLhs() != null).map(rule -> rule.getLhs().getAgents()).collect(Collectors.toList());
-		internalAgentDeses.addAll(rules.parallelStream().filter(r -> r.getRhs() != null).map(rule -> rule.getRhs().getAgents()).collect(Collectors.toList()));
-		List<List<Agent>> internalAgents = internalAgentDeses.stream().map(agents -> agents.stream().map(this::convertToAgent).collect(Collectors.toList())).collect(Collectors.toList());
-		for(int index = 0; index < internalAgentDeses.size(); ++index) {
-			setConnections(internalAgentDeses.get(index) , internalAgents.get(index));
-		}
-		kappaContainer.getAgents().addAll(internalAgents.parallelStream().flatMap(agents -> agents.stream()).collect(Collectors.toList()));
+		List<NKAInit> inits = NeoKappaUtil.getInstance().unsortedMapToSubType(file.getElements(), NKAInit.class);
+		List<KappaContainer> containers= inits.parallelStream().map(this::convertInit).collect(Collectors.toList());
+		KappaContainer kappaContainer = containers.stream().reduce(KappaStructureFactory.eINSTANCE.createKappaContainer(), (trg , src) -> join(trg,src));
+		
 		return kappaContainer;
+	}
+	
+	private KappaContainer convertInit(NKAInit init) {
+		int count = (int) new NeoKappaExpressionSolver().solveExpression(init.getNumber());
+		KappaContainer kappaContainer = KappaStructureFactory.eINSTANCE.createKappaContainer();
+		for (int index = 0; index < count; ++index) {
+			join(kappaContainer, convertToKappaContainer(init.getAgentConfig()));
+		}
+		return kappaContainer;
+	}
+	
+	private KappaContainer join(KappaContainer target, KappaContainer source) {
+		target.getAgents().addAll(source.getAgents());
+		return target;
 	}
 	
 	public KappaContainer convertToKappaContainer(NKADescriptionContainer desContainer){

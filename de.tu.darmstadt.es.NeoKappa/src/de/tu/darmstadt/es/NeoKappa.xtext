@@ -8,7 +8,7 @@ NKAFileElement: NKAInit | NKANamedFileElement;
 
 NKANamedFileElement:NKAAgent | NKARule | NKAVariable | NKAGeoLocation;
 
-NKAGeoLocation:NKALocation | NKACompartment;
+NKAGeoLocation:NKAVector | NKACompartment;
 
 NKAInit:'%init:' number = NKACallExpression agentConfig = NKADescriptionContainer;
 
@@ -16,7 +16,7 @@ NKAAgent:'%agent:' name = ID container = NKASiteContainer;
 
 NKACompartment:'%compartment:' name = ID shape=SHAPE;
 
-NKALocation:'%location:' name = ID locationDecription=NKALocationDecription;
+NKAVector:'%vector:' name = ID locationDecription=NKALocationDecription;
 
 NKALocationDecription:x=NKACoordinate y=NKACoordinate z=NKACoordinate;
 
@@ -34,7 +34,7 @@ NKADescriptionContainer:agents += NKAAgentDescription (',' agents += NKAAgentDes
 
 NKAAgentDescription:agent = [NKAAgent] (':' position = [NKACompartment])? '(' (sites += NKASiteDescription)? (',' sites += NKASiteDescription)* ')';
 
-NKASiteDescription:site = [NKASite] (':' position = [NKALocation])? ('~' internalStates += NKAStateDescription)* (connection=NKAConnection)?;
+NKASiteDescription:site = [NKASite] (':' position = [NKAVector])? ('~' internalStates += NKAStateDescription)* (connection=NKAConnection)?;
 
 NKAStateDescription:state = [NKAState];
 
