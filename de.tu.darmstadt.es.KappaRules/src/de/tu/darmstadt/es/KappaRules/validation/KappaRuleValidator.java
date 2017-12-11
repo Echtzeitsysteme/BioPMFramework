@@ -97,14 +97,14 @@ public class KappaRuleValidator {
 	}
 	
 	private void validateSitesOfPersistent(List<Edge> srcSiteEdges, List<Edge> trgSiteEdges, KappaRule rule) {	
-		List<List<Edge>> result = validateEdgeOfPersistentt(srcSiteEdges, trgSiteEdges, rule);
+		List<List<Edge>> result = validateEdgeAndNodeOfPersistentt(srcSiteEdges, trgSiteEdges);
 		List<Edge> srcPersistent = result.get(0);
 		List<Edge> trgPersistent = result.get(1);
 		srcPersistent.forEach(edge -> setSitePersistent(edge, trgPersistent, rule));			
 	}
 	
 	private void setSitePersistent(Edge srcSideEdge, Collection<Edge> persistentEdges, KappaRule rule) {
-		Edge otherSide = setPersistent(srcSideEdge, persistentEdges, rule);
+		Edge otherSide = setPersistentForEdgeAndNode(srcSideEdge, persistentEdges, rule);
 		Node srcNode=srcSideEdge.getTo();
 		Node trgNode=otherSide.getTo();
 		
@@ -112,32 +112,58 @@ public class KappaRuleValidator {
 		List<Edge> trgStateEdges = filterEdgeListForType(trgNode.getOutgoingEdges(), InternalState.class);
 		
 		validateStatesOfPersistent(srcStateEdges, trgStateEdges, rule);
+		
+		List<Edge> srcSiteToSiteConnections = filterEdgeListForType(srcNode.getOutgoingEdges(), Site.class);
+		List<Edge> trgSiteToSiteConnections = filterEdgeListForType(trgNode.getOutgoingEdges(), Site.class);
+		
+		List<List<Edge>> siteToSiteValidation = validateEdgeOfPersistentt(srcSiteToSiteConnections, trgSiteToSiteConnections);
+		List<Edge> srcSiteToSitePersistentConnections = siteToSiteValidation.get(0);
+		List<Edge> trgSiteToSitePersistentConnections = siteToSiteValidation.get(1);
+		
+		srcSiteToSitePersistentConnections.parallelStream().forEach(srcConnection -> setPersistentForEdge(srcConnection, trgSiteToSitePersistentConnections, rule));
+		
+		siteToSiteValidation.get(2).parallelStream().forEach(edge -> edge.setModifier(Modifier.CREATE));
+		siteToSiteValidation.get(3).parallelStream().forEach(edge -> edge.setModifier(Modifier.DELETE));
+		
 	}
 	
-	private void validateStatesOfPersistent(List<Edge> srcStateEdges, List<Edge> trgStateEdges, KappaRule rule) {
-		List<List<Edge>> result = validateEdgeOfPersistentt(srcStateEdges, trgStateEdges, rule);
-		List<Edge> srcPersistent = result.get(0);
-		List<Edge> trgPersistent = result.get(1);
-		srcPersistent.forEach(edge -> setPersistent(edge, trgPersistent, rule));
-	}
-	
-	private Edge setPersistent(Edge srcSideEdge, Collection<Edge> persistentEdges, KappaRule rule) {
-		Edge otherSide = getOtherSideEdge(srcSideEdge, persistentEdges);
-		setPersistent(srcSideEdge, otherSide, rule);
-		return otherSide;
-	}
-	
-	private List<List<Edge>> validateEdgeOfPersistentt(List<Edge> srcEdges, List<Edge> trgEdges, KappaRule rule) {		
+	private List<List<Edge>> validateEdgeOfPersistentt(List<Edge> srcEdges, List<Edge> trgEdges){
 		final Set<String> srcSymbols = srcEdges.parallelStream().map(edge -> nodeToName(edge.getTo())).collect(Collectors.toSet());
 		final Set<String> trgSymbols = trgEdges.parallelStream().map(edge -> nodeToName(edge.getTo())).collect(Collectors.toSet());	
 		List<Edge> srcPersistent = srcEdges.parallelStream().filter(edge -> nodeIsContaining(edge.getTo(), trgSymbols)).collect(Collectors.toList());
 		List<Edge> trgPersistent = trgEdges.parallelStream().filter(edge -> nodeIsContaining(edge.getTo(), srcSymbols)).collect(Collectors.toList());
 		List<Edge> toDelete = srcEdges.parallelStream().filter(edge -> !nodeIsContaining(edge.getTo(), trgSymbols)).collect(Collectors.toList());
 		List<Edge> toCreate = trgEdges.parallelStream().filter(edge -> !nodeIsContaining(edge.getTo(), srcSymbols)).collect(Collectors.toList());
-		setModifier(toCreate, Modifier.CREATE);
-		setModifier(toDelete, Modifier.DELETE);
 		
-		return Arrays.asList(srcPersistent, trgPersistent);
+		return Arrays.asList(srcPersistent, trgPersistent, toCreate, toDelete);
+	}
+	
+	
+	private void validateStatesOfPersistent(List<Edge> srcStateEdges, List<Edge> trgStateEdges, KappaRule rule) {
+		List<List<Edge>> result = validateEdgeAndNodeOfPersistentt(srcStateEdges, trgStateEdges);
+		List<Edge> srcPersistent = result.get(0);
+		List<Edge> trgPersistent = result.get(1);
+		srcPersistent.forEach(edge -> setPersistentForEdgeAndNode(edge, trgPersistent, rule));
+	}
+	
+	private Edge setPersistentForEdge(Edge srcSideEdge, Collection<Edge> persistentEdges, KappaRule rule) {
+		Edge otherSide = getOtherSideEdge(srcSideEdge, persistentEdges);
+		setPersistent(srcSideEdge, otherSide, rule);
+		return otherSide;
+	}
+	
+	private Edge setPersistentForEdgeAndNode(Edge srcSideEdge, Collection<Edge> persistentEdges, KappaRule rule) {
+		Edge otherSide = getOtherSideEdge(srcSideEdge, persistentEdges);
+		setPersistent(srcSideEdge, otherSide, rule);
+		setPersistent(srcSideEdge.getTo(), otherSide.getTo(), rule);
+		return otherSide;
+	}
+	
+	private List<List<Edge>> validateEdgeAndNodeOfPersistentt(List<Edge> srcEdges, List<Edge> trgEdges) {		
+		List<List<Edge>> validated = new ArrayList<>(validateEdgeOfPersistentt(srcEdges, trgEdges));
+		setModifier(validated.remove(2), Modifier.CREATE);
+		setModifier(validated.remove(2), Modifier.DELETE);		
+		return validated;
 	}
 	
 	
