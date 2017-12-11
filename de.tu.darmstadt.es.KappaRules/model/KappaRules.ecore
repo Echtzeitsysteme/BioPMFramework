@@ -7,8 +7,6 @@
         eType="#//KappaRule" containment="true" eOpposite="#//KappaRule/container"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="KappaRule" abstract="true" eSuperTypes="../../de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//KappaRuleContainer"
-        eOpposite="#//KappaRuleContainer/rules"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//Source"
         containment="true" eOpposite="#//Source/rule"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Target"
@@ -17,6 +15,10 @@
         defaultValueLiteral="1.0"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mappings" upperBound="-1"
         eType="#//Mapping" containment="true" eOpposite="#//Mapping/rule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subruleCalls" upperBound="-1"
+        eType="#//SubRuleCalls" containment="true" eOpposite="#//SubRuleCalls/parentRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//KappaRuleContainer"
+        eOpposite="#//KappaRuleContainer/rules"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Source" eSuperTypes="#//Graph">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//KappaRule"
@@ -77,6 +79,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceElement" lowerBound="1"
         eType="#//ModifiableElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetElement" lowerBound="1"
+        eType="#//ModifiableElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubRule" eSuperTypes="#//KappaRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubRuleCalls">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentRule" eType="#//KappaRule"
+        eOpposite="#//KappaRule/subruleCalls"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subrule" lowerBound="1"
+        eType="#//SubRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ModifiableElement"/>
   </eClassifiers>
 </ecore:EPackage>

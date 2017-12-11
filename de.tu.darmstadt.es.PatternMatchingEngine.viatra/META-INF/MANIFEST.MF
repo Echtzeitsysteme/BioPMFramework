@@ -4,4 +4,11 @@ Bundle-Name: Viatra
 Bundle-SymbolicName: de.tu.darmstadt.es.PatternMatchingEngine.viatra;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework;bundle-version="1.0.0"
+Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework,
+ de.tu.darmstadt.es.KappaStructure,
+ de.tu.darmstadt.es.KappaRules,
+ org.eclipse.viatra.query.patternlanguage,
+ de.tu.darmstadt.es.xtext.utils,
+ org.eclipse.emf.ecore,
+ org.eclipse.viatra.query.patternlanguage.emf
+Export-Package: de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter

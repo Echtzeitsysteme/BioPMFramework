@@ -21,11 +21,12 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRuleContainer/rules"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//KappaRule">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/container"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/source"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KappaRules.ecore#//KappaRule/rating"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/mappings"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/subruleCalls"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference KappaRules.ecore#//KappaRule/container"/>
     </genClasses>
     <genClasses ecoreClass="KappaRules.ecore#//Source">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Source/rule"/>
@@ -64,6 +65,12 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/rule"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/sourceElement"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//Mapping/targetElement"/>
+    </genClasses>
+    <genClasses ecoreClass="KappaRules.ecore#//SubRule"/>
+    <genClasses ecoreClass="KappaRules.ecore#//SubRuleCalls">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference KappaRules.ecore#//SubRuleCalls/parentRule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//SubRuleCalls/subrule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KappaRules.ecore#//SubRuleCalls/parameters"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

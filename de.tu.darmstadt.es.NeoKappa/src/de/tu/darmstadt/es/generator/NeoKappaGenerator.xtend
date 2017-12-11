@@ -10,6 +10,7 @@ import de.tu.darmstadt.es.neoKappa.NKAFile
 import org.eclipse.emf.common.util.URI
 import de.tu.darmstadt.es.utils.NeoKappaUtil
 
+
 /**
  * Generates code from your model files on save.
  * 
@@ -26,7 +27,9 @@ class NeoKappaGenerator extends AbstractNeoKappaGernerator {
 				val resSet = resource.resourceSet
 				val rules = this.ruleConverter.convert(file)
 				val rulesUri = createURIFromResource(resource, "model", "ruleSet.xmi")
-				NeoKappaUtil.getInstance.save(rules, rulesUri, resSet)
+				NeoKappaUtil.getInstance.save(rules, rulesUri, resSet) 
+				
+				generateTestViatra(rules,resource,resSet)
 				
 				val model = this.modelConverter.convert(file)
 				val modelUri = createURIFromResource(resource, "model", "kappaModel.xmi")
@@ -36,14 +39,5 @@ class NeoKappaGenerator extends AbstractNeoKappaGernerator {
 		
 	}
 	
-	def URI createURIFromResource(Resource resource, String folder, String file){
-		val originUri = resource.URI
-		val segments = originUri.toString.split("/")
-		if(segments.length>=3){
-			val prefix = segments.get(0)+ "/" + segments.get(1) + "/" + segments.get(2) +"/"
-			val path = prefix+folder+"/"+file
-			return URI.createURI(path)
-		}
-		return originUri
-	}
+
 }

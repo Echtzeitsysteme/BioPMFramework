@@ -18,7 +18,10 @@ Require-Bundle: org.eclipse.xtext,
  de.tu.darmstadt.es.KappaStructure,
  de.tu.darmstadt.es.BiochemicalSimulationFramework,
  de.tu.darmstadt.es.geolibrary.MetaSpecification,
- de.tu.darmstadt.es.KappaRules;bundle-version="0.1.0"
+ de.tu.darmstadt.es.KappaRules,
+ de.tu.darmstadt.es.PatternMatchingEngine.viatra,
+ org.eclipse.viatra.query.patternlanguage,
+ org.eclipse.viatra.query.patternlanguage.emf
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.tu.darmstadt.es,
  de.tu.darmstadt.es.generator,
