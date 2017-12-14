@@ -30,6 +30,16 @@ public class XtextUtil
       return instance;
    }
    
+   public <T> List<T> mapToSupertypeUnsorted(Collection <? extends T> subTypes, Class<T> clazz)
+   {
+      return subTypes.parallelStream().map(clazz::cast).collect(Collectors.toList());
+   }
+   
+   public <T> List<T> mapToSubtypeUnsorted(Collection<? super T> list, Class<T> clazz)
+   {
+      return list.parallelStream().filter(clazz::isInstance).map(clazz::cast).collect(Collectors.toList());
+   }
+   
    public <T> List<T> mapToSubtype(Collection<? super T> list, Class<T> clazz)
    {
       return list.stream().filter(clazz::isInstance).map(clazz::cast).collect(Collectors.toList());
