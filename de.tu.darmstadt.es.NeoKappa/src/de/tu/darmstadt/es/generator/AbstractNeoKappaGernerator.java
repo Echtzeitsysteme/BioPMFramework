@@ -39,7 +39,7 @@ public abstract class AbstractNeoKappaGernerator extends AbstractGenerator{
 	
 	protected void generateTestViatra(KappaRuleContainer kappaRuleContainer, Resource resource, ResourceSet resSet) {
 		RuleToPatternConverter r2pc = new RuleToPatternConverter();
-		EObject model = r2pc.createPatternModel(kappaRuleContainer);
+		EObject model = r2pc.createPatternModel(kappaRuleContainer, getProjectName(resource)+ ".patterns");
 		ResourceSet resourceSet = new ResourceSetImpl();
 		URI rulesUri = createURIFromResource(resource, "model", "viatraConvertion.vql");
 		try {
@@ -51,6 +51,10 @@ public abstract class AbstractNeoKappaGernerator extends AbstractGenerator{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	protected String getProjectName(Resource resource) {
+		return resource.getURI().toString().split("/")[2];
 	}
 	
 	protected URI createURIFromResource(Resource resource, String folder, String file){

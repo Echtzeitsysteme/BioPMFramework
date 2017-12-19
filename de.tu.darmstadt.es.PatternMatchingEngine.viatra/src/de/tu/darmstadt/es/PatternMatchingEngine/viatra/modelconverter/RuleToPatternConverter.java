@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.CompareConstraint;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.CompareFeature;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.ExecutionType;
@@ -34,6 +35,7 @@ import org.eclipse.viatra.query.patternlanguage.patternLanguage.Type;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.Variable;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.VariableReference;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.VariableValue;
+import org.eclipse.xtext.EcoreUtil2;
 
 import de.tu.darmstadt.es.KappaRules.BackwardRule;
 import de.tu.darmstadt.es.KappaRules.Edge;
@@ -53,13 +55,14 @@ public class RuleToPatternConverter {
 	
 	private PackageImport packageImport;
 	
-	public PatternModel createPatternModel(KappaRuleContainer kappaRuleContainer) {
+	public PatternModel createPatternModel(KappaRuleContainer kappaRuleContainer, String packageName) {
 		//patternmodel creation
 		PatternModel patternModel = EMFPatternLanguageFactory.eINSTANCE.createPatternModel();
-		patternModel.setPackageName("abc"); // TODO SaschaEdwinZander insert real packagename 
+		patternModel.setPackageName(packageName);
 		
 		// create imports
 		patternModel.setImportPackages(createImport(kappaRuleContainer.eClass().getEPackage()));
+		patternModel.setImportPackages(createImport(EcoreUtil2.eAllOfType(kappaRuleContainer, KappaContainer.class).stream().findFirst().get().eClass().getEPackage()));
 		
 		//Pattern creation
 		List<KappaRule> rules = kappaRuleContainer.getRules().parallelStream().filter(rule -> rule.getSource() != null).collect(Collectors.toList());
@@ -91,7 +94,6 @@ public class RuleToPatternConverter {
 		TypeCounter typeCounter = new TypeCounter();
 		BiMap<String, EObject> nameElementCache = new HashBiMap<>();
 		List<Parameter> parameters = source.getNodes().stream().map(node -> generateParameter(node.getElement(), nameElementCache, typeCounter)).collect(Collectors.toList());
-		parameters.add(generateParameter(source.getKappaModel(), nameElementCache, typeCounter));
 		pattern.getParameters().addAll(parameters);
 		
 		//create Body
@@ -115,34 +117,37 @@ public class RuleToPatternConverter {
 		
 		// create distinction of same types in main patterns
 		if(!(rule instanceof SubRule))
-			createConstraintsForDistinction(body, parameters, parameterRefCache);
+			createConstraintsForDistinction(body, parameters, parameterRefCache);		
 		
-		KappaContainer model = rule.getSource().getKappaModel();
-		List<Node> agentNodes = rule.getSource().getNodes().parallelStream().filter(node -> node.getElement() instanceof Agent).collect(Collectors.toList());
-		body.getConstraints().addAll(startCreateConnection(model, agentNodes, nameElementCache, parameterRefCache));
+		Node root = rule.getSource().getNodes().parallelStream().filter(node -> node.getElement() instanceof KappaContainer).findFirst().get();
+		body.getConstraints().addAll(startCreateConnection(root, nameElementCache, parameterRefCache));
 	}
 	
-	private List<PathExpressionConstraint> startCreateConnection(KappaContainer model, List<Node> nodes, BiMap<String, EObject> nameElementCache, BiMap<Parameter, ParameterRef> parameterRefCache) {
+	private List<PathExpressionConstraint> startCreateConnection(Node root,  BiMap<String, EObject> nameElementCache, BiMap<Parameter, ParameterRef> parameterRefCache) {
 		List<PathExpressionConstraint> constraints = new ArrayList<>();
-		constraints.addAll(nodes.parallelStream().map(node -> createPathExpressionConstraint(model, node.getElement(), nameElementCache, parameterRefCache)).collect(Collectors.toList()));
+		
 		Set<Edge> visited = new HashSet<>(); //for cycles
 		Stack<Node> stack = new Stack<>();
-		stack.addAll(nodes);
+		stack.push(root);
 		
 		while(!stack.isEmpty()) {
 			Node srcNode = stack.pop();
 			List<Edge> edges = srcNode.getOutgoingEdges().parallelStream().filter(edge -> !visited.contains(edge)).collect(Collectors.toList());
 			visited.addAll(edges);
+			constraints.addAll(edges.parallelStream().map(edge -> createPathExpressionConstraint(edge, nameElementCache, parameterRefCache)).collect(Collectors.toList()));
 			List<Node> targets = edges.parallelStream().map(edge -> edge.getTo()).collect(Collectors.toList());
-			constraints.addAll(targets.parallelStream().map(targetNode -> createPathExpressionConstraint(srcNode.getElement(), targetNode.getElement(), nameElementCache, parameterRefCache)).collect(Collectors.toList()));
 			stack.addAll(targets);			
 		}		
 		
 		return constraints;
 	}
 	
-	private PathExpressionConstraint createPathExpressionConstraint(EObject source, EObject target, BiMap<String, EObject> nameElementCache, BiMap<Parameter, ParameterRef> parameterRefCache) {
+	private PathExpressionConstraint createPathExpressionConstraint(Edge edge,  BiMap<String, EObject> nameElementCache, BiMap<Parameter, ParameterRef> parameterRefCache) {
 		//init
+		Node srcNode = edge.getFrom();
+		Node trgNode = edge.getTo();
+		EObject source = srcNode.getElement();
+		EObject target = trgNode.getElement();
 		PathExpressionConstraint constraint = PatternLanguageFactory.eINSTANCE.createPathExpressionConstraint();
 		
 		//create head
@@ -155,7 +160,7 @@ public class RuleToPatternConverter {
 		//create Tail
 		PathExpressionTail tail = PatternLanguageFactory.eINSTANCE.createPathExpressionTail();
 		head.setTail(tail);
-		tail.setType(createReferenceType(source.eClass(), target));
+		tail.setType(createReferenceType(edge));
 		
 		//create Src
 		String srcTypeName = nameElementCache.getKey(source);
@@ -170,12 +175,9 @@ public class RuleToPatternConverter {
 		return constraint;
 	}
 	
-	
-	
-	private ReferenceType createReferenceType(EClass sourceType, EObject target) {
-		ReferenceType referenceType = EMFPatternLanguageFactory.eINSTANCE.createReferenceType();
-		EStructuralFeature feature = target.eContainingFeature();
-		referenceType.setRefname(feature);
+	private ReferenceType createReferenceType(Edge edge) {
+		ReferenceType referenceType = EMFPatternLanguageFactory.eINSTANCE.createReferenceType();			
+		referenceType.setRefname(edge.getReference());		
 		return referenceType;
 	}
 	

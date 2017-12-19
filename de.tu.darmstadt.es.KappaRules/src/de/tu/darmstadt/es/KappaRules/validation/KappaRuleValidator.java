@@ -25,6 +25,8 @@ import de.tu.darmstadt.es.KappaRules.Target;
 import de.tu.darmstadt.es.KappaRules.exceptions.KappaRuleValidationException;
 import de.tu.darmstadt.es.kappaStructure.Agent;
 import de.tu.darmstadt.es.kappaStructure.InternalState;
+import de.tu.darmstadt.es.kappaStructure.KappaElement;
+import de.tu.darmstadt.es.kappaStructure.NamedElement;
 import de.tu.darmstadt.es.kappaStructure.Site;
 
 public class KappaRuleValidator {
@@ -189,7 +191,8 @@ public class KappaRuleValidator {
 	}
 	
 	private String nodeToName(Node node) {
-		return node.getElement().getName();
+		KappaElement element = node.getElement();
+		return element instanceof NamedElement? NamedElement.class.cast(node.getElement()).getName():"";
 	}
 	
 	private void setPersistent(ModifiableElement srcElement, ModifiableElement trgElement, KappaRule rule) {

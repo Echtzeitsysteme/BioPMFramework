@@ -3,8 +3,12 @@ package de.tu.darmstadt.es.converter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 
 import de.tu.darmstadt.es.KappaRules.BackwardRule;
 import de.tu.darmstadt.es.KappaRules.Edge;
@@ -20,6 +24,7 @@ import de.tu.darmstadt.es.KappaRules.validation.KappaRuleValidator;
 import de.tu.darmstadt.es.kappaStructure.Agent;
 import de.tu.darmstadt.es.kappaStructure.InternalState;
 import de.tu.darmstadt.es.kappaStructure.KappaElement;
+import de.tu.darmstadt.es.kappaStructure.NamedElement;
 import de.tu.darmstadt.es.kappaStructure.Site;
 import de.tu.darmstadt.es.neoKappa.NKADescriptionContainer;
 import de.tu.darmstadt.es.neoKappa.NKAFile;
@@ -73,7 +78,7 @@ public class KappaRuleConverter {
 			Source src = KappaRulesFactory.eINSTANCE.createSource();
 			rule.setSource(src);
 			src.setKappaModel(kappaStructureConverter.convertToKappaContainer(nkaFrom));
-			fillGraph(src, src.getKappaModel().getAgents());		
+			fillGraph(src);		
 		}
 		
 		if(nkaTo != null) {
@@ -81,30 +86,38 @@ public class KappaRuleConverter {
 			rule.setTarget(trg);
 			trg.setKappaModel(kappaStructureConverter.convertToKappaContainer(nkaTo));
 			
-			fillGraph(trg, trg.getKappaModel().getAgents());	
+			fillGraph(trg);	
 		}		
 	}
 	
-	private void fillGraph(Graph graph,  List<Agent> agents) {
-		agents.forEach(agent -> addAgentToGraph(graph, agent));
+	private void fillGraph(Graph graph) {
+		Node root = createNode(graph, graph.getKappaModel());
+		List<Node> agentNodes=fillGraph(graph, graph.getKappaModel().getAgents());
+		graph.getEdges().addAll(agentNodes.parallelStream().map(node -> createEdge(root, node, getEReferenceByName(graph.getKappaModel().eClass(), "agents"))).collect(Collectors.toList()));
+	}
+	
+	private List<Node> fillGraph(Graph graph,  List<Agent> agents) {
+		List<Node> agentNodes = agents.stream().map(agent -> addAgentToGraph(graph, agent)).collect(Collectors.toList());
 		final List<Node> siteNodes = graph.getNodes().parallelStream().filter(node -> node.getElement() instanceof Site).collect(Collectors.toList());
 		List<List<Edge>> edges =siteNodes.parallelStream().map(node -> createConnections(node, new HashSet<Node>(siteNodes))).collect(Collectors.toList());
 		graph.getEdges().addAll(edges.parallelStream().flatMap(edgeList -> edgeList.stream()).collect(Collectors.toList()));
+		return agentNodes;
 	}
 	
 	private List<Edge> createConnections(Node siteNode, Set<Node> allNodes) {
-		return Site.class.cast(siteNode.getElement()).getConnectedWith().stream().map(otherSite -> createEdge(siteNode, findNode(otherSite, allNodes))).collect(Collectors.toList());
+		return Site.class.cast(siteNode.getElement()).getConnectedWith().stream().map(otherSite -> createEdge(siteNode, findNode(otherSite, allNodes), getEReferenceByName(siteNode.getElement().eClass(), "connectedWith"))).collect(Collectors.toList());
 	}
 	
 	private Node findNode(Site site, final Set<Node> allNodes) {
 		return allNodes.parallelStream().filter(node -> node.getElement().equals(site)).findFirst().get();
 	}	
 	
-	private void addAgentToGraph(Graph graph, Agent agent) {
+	private Node addAgentToGraph(Graph graph, Agent agent) {
 		Node node = createNode(graph, agent);
 		node.setIndexOfElement(agent.getContained().getAgents().indexOf(agent));
 		List<Node> nodesFromSites = agent.getSites().stream().map(site -> convertSiteToNode(graph, site)).collect(Collectors.toList());
-		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other)).collect(Collectors.toList()));
+		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other, getEReferenceByName(agent.eClass(), "sites"))).collect(Collectors.toList()));
+		return node;
 	}
 
 	
@@ -112,7 +125,7 @@ public class KappaRuleConverter {
 		Node node = createNode(graph, site);
 		node.setIndexOfElement(site.getAgent().getSites().indexOf(site));
 		List<Node> nodesFromSites = site.getStates().stream().map(state -> convertStateToNode(graph, state)).collect(Collectors.toList());
-		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other)).collect(Collectors.toList()));
+		graph.getEdges().addAll(nodesFromSites.stream().map(other -> createEdge(node, other, getEReferenceByName(site.eClass(), "states"))).collect(Collectors.toList()));
 		return node;
 	}
 	
@@ -122,20 +135,30 @@ public class KappaRuleConverter {
 		return node;
 	}
 	
+	private EReference getEReferenceByName(EClass eClass, String name) {
+		Optional<EReference> monad = eClass.getEAllReferences().parallelStream().filter(ref -> ref.getName().equals(name)).findFirst();
+		return monad.isPresent()? monad.get() : null;
+	}
 	
 	private Node createNode(Graph graph, KappaElement element) {
 		Node node = KappaRulesFactory.eINSTANCE.createNode();
 		node.setGraph(graph);
 		node.setElement(element);
-		node.setSymbol(element.getName() + ":" + element.eClass().getName());
+		if(element instanceof NamedElement) {
+			node.setSymbol(NamedElement.class.cast(element).getName() + ":" + element.eClass().getName());
+		}
+		else {
+			node.setSymbol(element.eClass().getName());
+		}
 		return node;
 	}
 	
-	private Edge createEdge(Node from, Node to) {
+	private Edge createEdge(Node from, Node to, EReference reference) {
 		Edge edge = KappaRulesFactory.eINSTANCE.createEdge();
 		edge.setFrom(from);
 		edge.setTo(to);
 		edge.setSymbol(from.getSymbol() + " -> " +to.getSymbol() );
+		edge.setReference(reference);
 		return edge;
 	}
 }

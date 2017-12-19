@@ -10,5 +10,6 @@ Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework,
  org.eclipse.viatra.query.patternlanguage,
  de.tu.darmstadt.es.xtext.utils,
  org.eclipse.emf.ecore,
- org.eclipse.viatra.query.patternlanguage.emf
+ org.eclipse.viatra.query.patternlanguage.emf,
+ org.eclipse.xtext
 Export-Package: de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter

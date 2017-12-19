@@ -18,7 +18,8 @@ Require-Bundle: de.tu.darmstadt.es.NeoKappa,
  org.eclipse.xtend.lib;resolution:=optional,
  org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
- de.tu.darmstadt.es.xtext.utils
+ de.tu.darmstadt.es.xtext.utils,
+ org.eclipse.pde.ui;bundle-version="3.10.50"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.tu.darmstadt.es.ui.quickfix,
  de.tu.darmstadt.es.ui.contentassist,

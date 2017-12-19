@@ -6,6 +6,9 @@
     <semanticResources>platform:/resource/de.tu.darmstadt.es.KappaStructure/model/kappaStructure.ecore</semanticResources>
     <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
     <semanticResources>platform:/resource/de.tu.darmstadt.es.KappaStructure/model/kappaStructure.genmodel</semanticResources>
+    <semanticResources>platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign</semanticResources>
+    <semanticResources>environment:/viewpoint</semanticResources>
+    <semanticResources>http://www.eclipse.org/emf/2002/GenModel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" xmi:id="_J7q9YNm_Eee2dajx7reE_g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_KApkANm_Eee2dajx7reE_g" name="KappaRules" repPath="#_KAl5oNm_Eee2dajx7reE_g">
