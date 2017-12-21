@@ -11,4 +11,6 @@ Export-Package: de.tu.darmstadt.es.biochemicalSimulationFramework,
  de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine,
  de.tu.darmstadt.es.biochemicalSimulationFramework.persistence,
  de.tu.darmstadt.es.biochemicalSimulationFramework.splitter
-Require-Bundle: de.tu.darmstadt.es.geolibrary.MetaSpecification
+Require-Bundle: de.tu.darmstadt.es.geolibrary.MetaSpecification,
+ de.tu.darmstadt.es.KappaRules,
+ org.eclipse.emf.ecore

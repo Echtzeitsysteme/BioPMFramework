@@ -2,6 +2,7 @@ package de.tu.darmstadt.es.xtext.utils.utils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -18,8 +19,9 @@ public class WorkspaceHelper {
 
 	public final static WorkspaceHelper INSTANCE = new WorkspaceHelper();
 	
+	private final String BIN = "bin";
 	private final String SRC = "src";
-	
+	private final String SRC_GEN = "src-gen";
 	private WorkspaceHelper() {
 		
 	}
@@ -32,7 +34,7 @@ public class WorkspaceHelper {
 	}
 	
 	public boolean projectExist(String projectName) {
-		return getAllProjectsInWorkspace().parallelStream().anyMatch(project -> projectName.equalsIgnoreCase(project.getName()));
+		return getProjectMonad(projectName).isPresent();
 	}
 	
 	public IProject createEmptyProject(String projectName) throws CoreException {
@@ -43,6 +45,15 @@ public class WorkspaceHelper {
 		project.open(progressMonitor);
 		
 		return project;
+	}
+	
+	public IProject getProjectByName(String projectName) {
+		Optional<IProject> monad = getProjectMonad(projectName);
+		return monad.isPresent()? monad.get() : null;
+	}
+	
+	private Optional<IProject> getProjectMonad(String projectName){
+		return getAllProjectsInWorkspace().parallelStream().filter(project -> projectName.equalsIgnoreCase(project.getName())).findFirst();
 	}
 	
 	public void addNature(IProject project, String natureID) throws CoreException {
@@ -68,9 +79,26 @@ public class WorkspaceHelper {
 		return project.getFolder(SRC);
 	}
 	
-	public void addNeededFoldes(IProject project) throws CoreException{
-		
-		
+	public IFolder getBinFolder(IProject project) {
+		return project.getFolder(BIN);
+	}
+	
+	public IFolder getSrcGenFolder(IProject project) {
+		return project.getFolder(SRC_GEN);
+	}
+	
+	public IFolder getSubFolderFromQualifiedName(IFolder folder, String qualifiedName) {
+		List<String> parts = Arrays.asList(qualifiedName.split("\\."));
+		IFolder current = folder;
+		IFolder parent;
+		for(String part : parts) {
+			parent = current;
+			current = parent.getFolder(part);
+			if(!current.exists()) {
+				return parent;
+			}
+		}
+		return current;
 	}
 	
 }

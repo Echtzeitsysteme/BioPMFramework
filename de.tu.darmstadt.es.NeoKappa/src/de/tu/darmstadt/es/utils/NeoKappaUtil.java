@@ -38,7 +38,7 @@ public class NeoKappaUtil {
 	
 	public Resource save(EObject model, URI uri, ResourceSet resourceSet) throws IOException {
 		Resource resource = addToResource(model, uri, resourceSet);
-		resource.save(Collections.EMPTY_MAP);
+		resource.save(null);
 		return resource;
 	}
 	

@@ -1,7 +1,9 @@
 package de.tu.darmstadt.es.xtext.utils.scoping.utils;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -94,6 +96,17 @@ public class ScopeUtil
       }
    }
 
+	public URI createURIFromResource(Resource resource, String folder, String file){
+		URI originUri = resource.getURI();
+		List<String> segments = Arrays.asList(originUri.toString().split("/"));
+		if(segments.size()>=3){
+			String prefix = segments.get(0) + "/" + segments.get(1) + "/" + segments.get(2) +"/";
+			String path = prefix+folder+"/" + file;
+			return URI.createURI(path);
+		}
+		return originUri;
+	}
+   
    public ResourceSet getResourceSet(String ext)
    {
       ResourceSet resourceSet = new ResourceSetImpl();

@@ -13,6 +13,7 @@ import org.eclipse.viatra.query.patternlanguage.patternLanguage.PatternModel;
 import org.eclipse.xtext.generator.AbstractGenerator;
 
 import de.tu.darmstadt.es.KappaRules.KappaRuleContainer;
+import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter.RuleToPatternConverter;
 import de.tu.darmstadt.es.converter.KappaRuleConverter;
 import de.tu.darmstadt.es.converter.KappaStructureConverter;
@@ -38,16 +39,24 @@ public abstract class AbstractNeoKappaGernerator extends AbstractGenerator{
 	}
 	
 	protected void generateTestViatra(KappaRuleContainer kappaRuleContainer, Resource resource, ResourceSet resSet) {
-		RuleToPatternConverter r2pc = new RuleToPatternConverter();
-		EObject model = r2pc.createPatternModel(kappaRuleContainer, getProjectName(resource)+ ".patterns");
-		ResourceSet resourceSet = new ResourceSetImpl();
-		URI rulesUri = createURIFromResource(resource, "model", "viatraConvertion.vql");
+//		RuleToPatternConverter r2pc = new RuleToPatternConverter();
+//		EObject model = r2pc.createPatternModel(kappaRuleContainer, getProjectName(resource)+ ".patterns");
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		URI rulesUri = createURIFromResource(resource, "model", "viatraConvertion.vql");
+//		try {
+//			Resource res = NeoKappaUtil.getInstance().addToResource(model, rulesUri, resourceSet);
+//			resourceSet.getResources().remove(res);
+//			res = NeoKappaUtil.getInstance().addToResource(model, rulesUri, resourceSet);
+//			res.save(null);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		try {
-			Resource res = NeoKappaUtil.getInstance().addToResource(model, rulesUri, resourceSet);
-			resourceSet.getResources().remove(res);
-			res = NeoKappaUtil.getInstance().addToResource(model, rulesUri, resourceSet);
-			res.save(null);
-		} catch (Exception e) {
+		VIATRAEngine engine = new VIATRAEngine(getProjectName(resource), new ResourceSetImpl());
+		engine.convertToPatternModel(kappaRuleContainer);
+		engine.run();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		
