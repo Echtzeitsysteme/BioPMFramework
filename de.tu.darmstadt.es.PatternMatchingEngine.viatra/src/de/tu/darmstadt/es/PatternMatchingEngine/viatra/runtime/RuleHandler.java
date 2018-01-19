@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.viatra.query.runtime.api.IPatternMatch;
+import org.osgi.framework.BundleException;
 
 import de.tu.darmstadt.es.KappaRules.KappaRule;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
@@ -64,20 +67,32 @@ public class RuleHandler implements IRuleHandler {
 	}
 
 	@Override
-	public Collection<Class<? extends IPatternMatch>> loadMatches() throws ClassNotFoundException, CoreException, MalformedURLException {
+	public void loadMatches(List<Class<?>> classes) throws ClassNotFoundException, CoreException, MalformedURLException, BundleException {
 		if (!engine.isLoaded() || matchClasses == null) {
-			String packageRealName = packageName.substring(0, packageName.length() - 9);
-			IProject project = WorkspaceHelper.INSTANCE.getProjectByName(packageRealName);
-			IFolder srcGen = WorkspaceHelper.INSTANCE.getSrcGenFolder(project);
-			IFolder projectNameFolder = WorkspaceHelper.INSTANCE.getSubFolderFromQualifiedName(srcGen, packageName);
-			matchClasses = matchLoader.loadMatches(projectNameFolder, packageName, ruleCache.keySet());
-		}
-		return matchClasses.values();
+			if(matchClasses == null)
+				matchClasses = new HashMap<>();
+			List<Class<IPatternMatch>> matchClassList = classes.parallelStream().filter(IPatternMatch.class::isAssignableFrom).map(this::convertAnyClassToIPatternMatchClass).collect(Collectors.toList());
+			for(Class<IPatternMatch> clazz : matchClassList) {
+				matchClasses.put(clazz.getName(), clazz);
+			}
+		}		
 	}
 
+	@SuppressWarnings("unchecked")
+	private Class<IPatternMatch> convertAnyClassToIPatternMatchClass(Class<?> anyClass) {
+		return (Class<IPatternMatch>) anyClass;
+	}
+	
 	@Override
 	public int countAllMatches() {
 		return matchCache.entrySet().parallelStream().mapToInt(entry -> entry.getValue().size()).reduce(0, (a,b) -> a + b);
+	}
+
+
+
+	@Override
+	public Collection<Class<? extends IPatternMatch>> getMatches() {
+		return matchClasses.values();
 	}
 
 }

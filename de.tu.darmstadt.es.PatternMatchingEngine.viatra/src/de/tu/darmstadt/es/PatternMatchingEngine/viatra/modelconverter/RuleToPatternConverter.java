@@ -7,9 +7,11 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.CompareConstraint;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.CompareFeature;
 import org.eclipse.viatra.query.patternlanguage.patternLanguage.ExecutionType;
@@ -45,23 +47,44 @@ import de.tu.darmstadt.es.KappaRules.Source;
 import de.tu.darmstadt.es.KappaRules.SubRule;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.utils.TypeCounter;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.EnginePatternConverter;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 import de.tu.darmstadt.es.kappaStructure.KappaContainer;
 import de.tu.darmstadt.es.xtext.utils.utils.BiMap;
 import de.tu.darmstadt.es.xtext.utils.utils.HashBiMap;
+import de.tu.darmstadt.es.xtext.utils.utils.ResourceUtil;
 
-public class RuleToPatternConverter {
+public class RuleToPatternConverter implements EnginePatternConverter{
 	
 	private PackageImport packageImport;
 	private VIATRAEngine viatraEngine;
+	private ResourceSet resourceSet;
+	private String packageName;
 	
-	public RuleToPatternConverter(VIATRAEngine viatraEngine) {
+	public RuleToPatternConverter(VIATRAEngine viatraEngine, String packageName, ResourceSet resourceSet) {
 		this.viatraEngine = viatraEngine;
+		this.packageName = packageName;
+		this.resourceSet = resourceSet;
 	}
 	
-	public PatternModel createPatternModel(KappaRuleContainer kappaRuleContainer, String packageName) {
+	@Override
+	public void convertToPatternModel(KappaRuleContainer container) {
+		PatternModel patternModel = createPatternModel(container);
+		URI uri = ResourceUtil.getInstance().createURIFromResource(container.eResource(), "src/" + packageName + "/patterns",  "ViatraConvertion.vql");
+		ResourceUtil.getInstance().saveToResource(uri, resourceSet, patternModel);
+		viatraEngine.setLoaded(false);
+		
+	}
+
+	@Override
+	public PatternMatchingEngine getEngine() {
+		return this.viatraEngine;
+	}
+	
+	public PatternModel createPatternModel(KappaRuleContainer kappaRuleContainer) {
 		//patternmodel creation
 		PatternModel patternModel = EMFPatternLanguageFactory.eINSTANCE.createPatternModel();
-		patternModel.setPackageName(packageName);
+		patternModel.setPackageName(packageName + ".patterns");
 		
 		// create imports
 		patternModel.setImportPackages(createImport(kappaRuleContainer.eClass().getEPackage()));
@@ -282,4 +305,6 @@ public class RuleToPatternConverter {
 		String name = eClass.getName();
 		return Character.toLowerCase(name.charAt(0)) + name.substring(1);
 	}
+
+
 }

@@ -22,4 +22,6 @@ Require-Bundle: de.tu.darmstadt.es.BiochemicalSimulationFramework,
  org.eclipse.core.runtime;bundle-version="3.13.0",
  org.apache.log4j
 Export-Package: de.tu.darmstadt.es.PatternMatchingEngine.viatra,
- de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter
+ de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter,
+ de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime,
+ de.tu.darmstadt.es.PatternMatchingEngine.viatra.utils

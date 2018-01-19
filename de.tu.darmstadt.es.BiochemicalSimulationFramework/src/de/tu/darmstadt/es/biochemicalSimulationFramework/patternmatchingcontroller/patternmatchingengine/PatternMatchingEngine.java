@@ -3,6 +3,7 @@ package de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontrol
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import de.tu.darmstadt.es.KappaRules.KappaRuleContainer;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.utils.FrameworkHelper;
 
 public abstract class PatternMatchingEngine{
 	
@@ -14,9 +15,12 @@ public abstract class PatternMatchingEngine{
 	public PatternMatchingEngine(String packageName, ResourceSet resourceSet) {
 		this.packageName = packageName + PACKAGE_SUFFIX;
 		this.resourceSet = resourceSet;
+		FrameworkHelper.instance().addEngine(this);
 	}
 	
-	public abstract void convertToPatternModel(KappaRuleContainer container);
+	public abstract void createController();
 	
-	public abstract void run();
+    public abstract EnginePatternConverter getConverter();
+	
+	public abstract void run(Object... objects);
 }

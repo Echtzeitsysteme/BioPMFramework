@@ -25,4 +25,39 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="de.tu.darmstadt.es.BiochemicalSimulationFramework"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.KappaRules"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.KappaStructure"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.geolibrary.MetaSpecification"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.tu.darmstadt.es.xtext.utils"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

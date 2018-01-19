@@ -1,4 +1,4 @@
-package de.tu.darmstadt.es.xtext.utils.scoping.utils;
+package de.tu.darmstadt.es.xtext.utils.utils;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,18 +14,18 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-public class ScopeUtil
+public class ResourceUtil
 {
-   private static ScopeUtil instance;
+   private static ResourceUtil instance;
 
-   private ScopeUtil()
+   private ResourceUtil()
    {
    }
 
-   public static ScopeUtil getInstance()
+   public static ResourceUtil getInstance()
    {
       if (instance == null)
-         instance = new ScopeUtil();
+         instance = new ResourceUtil();
       return instance;
    }
 

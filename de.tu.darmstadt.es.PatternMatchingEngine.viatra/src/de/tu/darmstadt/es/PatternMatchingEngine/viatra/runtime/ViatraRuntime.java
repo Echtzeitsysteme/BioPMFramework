@@ -63,7 +63,7 @@ public class ViatraRuntime {
 	
 	public EventDrivenTransformation createTransformation() {
 		try {
-			Collection<Class<? extends IPatternMatch> > classes = ruleHandler.loadMatches();
+			Collection<Class<? extends IPatternMatch> > classes = ruleHandler.getMatches();
 			List<EventDrivenTransformationRule<?, ?>> rules = classes.parallelStream().map(this::createRule).collect(Collectors.toList());
 			EventDrivenTransformation.EventDrivenTransformationBuilder forEngine = EventDrivenTransformation.forEngine(this.engine);
 			EventDrivenTransformationRuleGroup transformationRuleGroup = createEventDrivenTransformationRuleGroup(rules);
