@@ -12,7 +12,9 @@ import de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter.RuleToPatt
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.IRuleHandler;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.RuleHandler;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.ViatraRuntime;
+import de.tu.darmstadt.es.PatternMatchingEngine.viatra.template.VIATRAMainTemplate;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.EnginePatternConverter;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.MainClassTemplate;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 
 public class VIATRAEngine extends PatternMatchingEngine{
@@ -20,23 +22,18 @@ public class VIATRAEngine extends PatternMatchingEngine{
 	private RuleToPatternConverter ruleToPatternConverter;
 	private RuleHandler ruleHandler;
 	private ViatraRuntime runtime;
+	private VIATRAMainTemplate mainTemplate;
 	private boolean loaded = false;
 	
 	
 	public VIATRAEngine(String packageName, ResourceSet resourceSet) {
 		super(packageName, resourceSet);		
-		ruleHandler = new RuleHandler(this.packageName, this);		
+		ruleHandler = new RuleHandler(this.patternPackageName, this);		
 	}
 	
 	public void setLoaded(boolean load) {
 		loaded=load;
 	}
-
-//	@Override
-//	public void convertToPatternModel(KappaRuleContainer container) {
-//		patternModel = ruleToPatternConverter.createPatternModel(container, this.packageName);
-//		loaded = false;
-//	}
 
 	@Override
 	public void run(Object... objects) {
@@ -45,6 +42,11 @@ public class VIATRAEngine extends PatternMatchingEngine{
 			List<Class<?>> classes = objectsList.parallelStream().filter(Class.class::isInstance).map(Class.class::cast).collect(Collectors.toList());
 			
 			ruleHandler.loadMatches(classes);
+			
+			getRuntime().initialize();
+			getRuntime().createTransformation();
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +79,13 @@ public class VIATRAEngine extends PatternMatchingEngine{
 	@Override
 	public void createController() {
 		ruleToPatternConverter = new RuleToPatternConverter(this, packageName, resourceSet);		
+	}
+
+	@Override
+	public MainClassTemplate getMainClassTemplate() {
+		if(mainTemplate == null)
+			mainTemplate = new VIATRAMainTemplate(packageName);
+		return mainTemplate;
 	}
 	
 }

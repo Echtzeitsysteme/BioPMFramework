@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 import de.tu.darmstadt.es.KappaRules.KappaRuleContainer;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.EnginePatternConverter;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.MainClassTemplate;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 
 public class DemoclesEngine extends PatternMatchingEngine{
@@ -31,6 +32,12 @@ public class DemoclesEngine extends PatternMatchingEngine{
 	public void createController() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public MainClassTemplate getMainClassTemplate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -7,13 +7,16 @@ import java.util.Optional;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
 
 public class WorkspaceHelper {
 
@@ -50,6 +53,23 @@ public class WorkspaceHelper {
 	public IProject getProjectByName(String projectName) {
 		Optional<IProject> monad = getProjectMonad(projectName);
 		return monad.isPresent()? monad.get() : null;
+	}
+	
+	public IResource getIResource(URI uri) throws CoreException {
+		String projectName = ResourceUtil.getInstance().getProjectNameFromURI(uri);
+		IProject project = getProjectByName(projectName);
+		project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		String[] segments = uri.segments();
+		IFolder currentFolder = project.getFolder(uri.segment(2));
+		IPath path = currentFolder.getLocation();
+		for(int index = 3; index < segments.length; ++index) {
+			String segment = segments[index];
+			path = path.append(segment);			
+		}
+		if(path.toFile().isFile())
+			return project.getFile(path);
+		else			
+			return project.getFolder(path);
 	}
 	
 	private Optional<IProject> getProjectMonad(String projectName){

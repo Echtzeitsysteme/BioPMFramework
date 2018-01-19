@@ -23,8 +23,6 @@ public class RuleHandler implements IRuleHandler {
 	
 	private String packageName;
 	
-	private MatchLoader matchLoader;
-	
 	private Map<String, Collection<IPatternMatch>> matchCache = new HashMap<>();
 	
 	private Map<String, KappaRule> ruleCache = new HashMap<>();
@@ -35,7 +33,6 @@ public class RuleHandler implements IRuleHandler {
 	
 	public RuleHandler(String packageName, VIATRAEngine engine) {
 		this.packageName = packageName;
-		matchLoader = new MatchLoader();
 		this.engine = engine;
 	}
 

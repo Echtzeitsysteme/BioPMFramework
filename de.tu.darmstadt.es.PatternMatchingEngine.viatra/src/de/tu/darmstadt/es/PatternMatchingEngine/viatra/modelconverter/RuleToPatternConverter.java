@@ -72,6 +72,8 @@ public class RuleToPatternConverter implements EnginePatternConverter{
 		PatternModel patternModel = createPatternModel(container);
 		URI uri = ResourceUtil.getInstance().createURIFromResource(container.eResource(), "src/" + packageName + "/patterns",  "ViatraConvertion.vql");
 		ResourceUtil.getInstance().saveToResource(uri, resourceSet, patternModel);
+		String tmpl = viatraEngine.getMainClassTemplate().getTemplateText();
+		System.out.println(tmpl);
 		viatraEngine.setLoaded(false);
 		
 	}
