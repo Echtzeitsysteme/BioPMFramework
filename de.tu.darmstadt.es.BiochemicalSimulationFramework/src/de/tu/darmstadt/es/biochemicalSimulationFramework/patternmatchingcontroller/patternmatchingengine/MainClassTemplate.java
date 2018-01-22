@@ -2,4 +2,5 @@ package de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontrol
 
 public abstract class MainClassTemplate {
 	public abstract String getTemplateText();
+	public abstract String getRelativePathOfFolderInProject();
 }

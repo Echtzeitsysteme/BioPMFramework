@@ -13,6 +13,10 @@ public abstract class AbstractVIATRAMainTemplate  extends MainClassTemplate{
 		patternPackageString = packageName + ".patterns";
 	}
 	
+	public String getRelativePathOfFolderInProject() {
+		return "src/" + packageName + "/main"; 
+	}
+	
 	protected String getPackageBinaryPath() {
 		return "bin/" + packageName + "/patterns/";
 	}

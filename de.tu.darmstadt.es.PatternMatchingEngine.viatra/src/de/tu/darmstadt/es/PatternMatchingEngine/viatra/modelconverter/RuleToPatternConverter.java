@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -72,8 +73,15 @@ public class RuleToPatternConverter implements EnginePatternConverter{
 		PatternModel patternModel = createPatternModel(container);
 		URI uri = ResourceUtil.getInstance().createURIFromResource(container.eResource(), "src/" + packageName + "/patterns",  "ViatraConvertion.vql");
 		ResourceUtil.getInstance().saveToResource(uri, resourceSet, patternModel);
-		String tmpl = viatraEngine.getMainClassTemplate().getTemplateText();
-		System.out.println(tmpl);
+
+		JavaFileCreator javaFileCreator = new JavaFileCreator(viatraEngine.getMainClassTemplate(), uri);
+		try {
+			javaFileCreator.createMainFile();
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		viatraEngine.setLoaded(false);
 		
 	}

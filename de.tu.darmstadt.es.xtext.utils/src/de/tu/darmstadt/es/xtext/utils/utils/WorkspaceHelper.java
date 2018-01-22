@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public class WorkspaceHelper {
 
@@ -56,20 +57,32 @@ public class WorkspaceHelper {
 	}
 	
 	public IResource getIResource(URI uri) throws CoreException {
-		String projectName = ResourceUtil.getInstance().getProjectNameFromURI(uri);
-		IProject project = getProjectByName(projectName);
+		IProject project = getProjectByURI(uri);
 		project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		IPath path = getPathByURI(project, uri);
+		if(path.toFile().isDirectory())
+			return project.getFolder(path);
+		else	
+			return project.getFile(path);			
+	}
+	
+	public IPath getPathByURI(IResource iResource, URI uri) {
 		String[] segments = uri.segments();
-		IFolder currentFolder = project.getFolder(uri.segment(2));
-		IPath path = currentFolder.getLocation();
-		for(int index = 3; index < segments.length; ++index) {
+		IPath path = iResource.getLocation();
+		for(int index = 2; index < segments.length; ++index) {
 			String segment = segments[index];
 			path = path.append(segment);			
 		}
-		if(path.toFile().isFile())
-			return project.getFile(path);
-		else			
-			return project.getFolder(path);
+		return path;
+	}
+	
+	public IProject getProjectByURI(URI uri) {
+		String projectName = ResourceUtil.getInstance().getProjectNameFromURI(uri);
+		return getProjectByName(projectName);
+	}
+	
+	public IProject getProjectByResource(Resource resource) {
+		return getProjectByURI(resource.getURI());
 	}
 	
 	private Optional<IProject> getProjectMonad(String projectName){

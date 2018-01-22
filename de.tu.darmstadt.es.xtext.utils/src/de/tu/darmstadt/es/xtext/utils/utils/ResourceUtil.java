@@ -111,10 +111,14 @@ public class ResourceUtil {
 	
 	public URI createURIFromResource(Resource resource, String folder, String file) {
 		URI originUri = resource.getURI();
-		List<String> segments = Arrays.asList(originUri.toString().split("/"));
+        return createURIFromOtherURI(originUri, getProjectNameFromURI(originUri), folder, file);
+	}
+	
+	public URI createURIFromOtherURI(URI originUri, String projectName, String folder, String file) {
+			List<String> segments = Arrays.asList(originUri.toString().split("/"));
 		if (segments.size() >= 3) {
-			String prefix = segments.get(0) + "/" + segments.get(1) + "/" + segments.get(2) + "/";
-			String path = prefix + folder + "/" + file;
+			String prefix = segments.get(0) + "/" + segments.get(1) + "/";
+			String path = prefix + projectName + "/" + folder + "/" + file;
 			return URI.createURI(path);
 		}
 		return originUri;

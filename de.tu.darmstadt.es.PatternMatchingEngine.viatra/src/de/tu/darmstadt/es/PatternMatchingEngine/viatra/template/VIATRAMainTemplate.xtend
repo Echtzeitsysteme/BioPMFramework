@@ -25,13 +25,11 @@ class VIATRAMainTemplate extends AbstractVIATRAMainTemplate {
 		import java.util.Arrays;
 		import java.util.List;
 		import java.util.stream.Collectors;
-		
-		import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-		import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;
-		
+		import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;		
 		import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
 		import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 		import de.tu.darmstadt.es.kappaStructure.KappaStructurePackage;
+		import de.tu.darmstadt.es.biochemicalSimulationFramework.utils.FrameworkHelper;
 		import «patternPackageString».*;
 		'''
 	}
@@ -94,7 +92,7 @@ class VIATRAMainTemplate extends AbstractVIATRAMainTemplate {
 			
 			public static void main(String[] args) throws ClassNotFoundException, ViatraQueryException {
 				loadDependencies();
-				PatternMatchingEngine pm = new VIATRAEngine(PACKAGE_NAME, new ResourceSetImpl());
+				PatternMatchingEngine pm = FrameworkHelper.instance().getOrCreatePatternMatcher(VIATRAEngine.class, PACKAGE_NAME);
 				pm.run(new Main().loadClasses(), MODEL_PATH);
 			}
 		'''
