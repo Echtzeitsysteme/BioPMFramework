@@ -13,11 +13,15 @@ import org.eclipse.viatra.query.patternlanguage.patternLanguage.PatternModel;
 import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
+import org.eclipse.xtext.xtext.generator.web.WebIntegrationFragment.Framework;
 
+import de.tu.darmstadt.es.BiochemicalSimulationFramework.utils.FrameworkHelper;
 import de.tu.darmstadt.es.KappaRules.KappaRuleContainer;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter.RuleToPatternConverter;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.SimulatorConfigurator;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.NaivePatternMatchingController;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.PatternMatchingController;
 import de.tu.darmstadt.es.converter.KappaRuleConverter;
 import de.tu.darmstadt.es.converter.KappaStructureConverter;
 import de.tu.darmstadt.es.converter.NeoKappaExpressionSolver;
@@ -58,10 +62,11 @@ public class AbstractNeoKappaGernerator extends AbstractGenerator{
 //			e.printStackTrace();
 //		}
 		
-		NaivePatternMatchingController naivePatternMatchingController = new NaivePatternMatchingController();
-		naivePatternMatchingController.createPatternMatchingEngine(getProjectName(resource), new ResourceSetImpl(), VIATRAEngine.class);
-		
-		naivePatternMatchingController.getPatternMatchingEngine().getConverter().convertToPatternModel(kappaRuleContainer);
+		SimulatorConfigurator simConfig = FrameworkHelper.instance().getDefaultConfig(getProjectName(resource));
+		PatternMatchingController pmc = simConfig.getPatternMatchingController();
+		pmc.getPatternMatchingEngine().getConverter().convertToPatternModel(kappaRuleContainer);
+				
+	
 		
 //		VIATRAEngine engine = new VIATRAEngine(getProjectName(resource), new ResourceSetImpl());
 //		engine.convertToPatternModel(kappaRuleContainer);

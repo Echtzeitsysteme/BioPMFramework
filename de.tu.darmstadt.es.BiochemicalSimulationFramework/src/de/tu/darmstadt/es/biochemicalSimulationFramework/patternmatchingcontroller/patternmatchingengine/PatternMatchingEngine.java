@@ -2,8 +2,6 @@ package de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontrol
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-import de.tu.darmstadt.es.biochemicalSimulationFramework.utils.FrameworkHelper;
-
 public abstract class PatternMatchingEngine{
 	
 	private static final String PACKAGE_SUFFIX = ".patterns";
@@ -16,7 +14,6 @@ public abstract class PatternMatchingEngine{
 		this.packageName = packageName;
 		this.patternPackageName = packageName + PACKAGE_SUFFIX;
 		this.resourceSet = resourceSet;
-		FrameworkHelper.instance().addEngine(this);
 	}
 	
 	public abstract void createController();
@@ -26,4 +23,6 @@ public abstract class PatternMatchingEngine{
 	public abstract void run(Object... objects);
 	
 	public abstract MainClassTemplate getMainClassTemplate();
+	
+	public abstract Manipulation getManipulation();
 }

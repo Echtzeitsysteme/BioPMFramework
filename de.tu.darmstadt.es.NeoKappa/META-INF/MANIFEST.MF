@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.xtext,
  de.tu.darmstadt.es.PatternMatchingEngine.viatra,
  org.eclipse.viatra.query.patternlanguage,
  org.eclipse.viatra.query.patternlanguage.emf,
- de.tu.darmstadt.es.xtext.utils;bundle-version="1.0.0"
+ de.tu.darmstadt.es.xtext.utils;bundle-version="1.0.0",
+ de.tu.darmstadt.es.BiochemicalSimulationFramework.utils;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: de.tu.darmstadt.es,
  de.tu.darmstadt.es.generator,

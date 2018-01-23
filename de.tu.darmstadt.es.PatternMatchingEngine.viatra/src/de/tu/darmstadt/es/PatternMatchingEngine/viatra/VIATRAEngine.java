@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.viatra.query.patternlanguage.emf.eMFPatternLanguage.PatternModel;
-
-import de.tu.darmstadt.es.KappaRules.KappaRuleContainer;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.modelconverter.RuleToPatternConverter;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.IRuleHandler;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.RuleHandler;
@@ -15,6 +12,7 @@ import de.tu.darmstadt.es.PatternMatchingEngine.viatra.runtime.ViatraRuntime;
 import de.tu.darmstadt.es.PatternMatchingEngine.viatra.template.VIATRAMainTemplate;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.EnginePatternConverter;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.MainClassTemplate;
+import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.Manipulation;
 import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 
 public class VIATRAEngine extends PatternMatchingEngine{
@@ -86,6 +84,12 @@ public class VIATRAEngine extends PatternMatchingEngine{
 		if(mainTemplate == null)
 			mainTemplate = new VIATRAMainTemplate(packageName);
 		return mainTemplate;
+	}
+
+	@Override
+	public Manipulation getManipulation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
