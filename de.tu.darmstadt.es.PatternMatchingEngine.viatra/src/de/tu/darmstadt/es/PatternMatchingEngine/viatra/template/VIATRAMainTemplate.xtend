@@ -25,11 +25,12 @@ class VIATRAMainTemplate extends AbstractVIATRAMainTemplate {
 		import java.util.Arrays;
 		import java.util.List;
 		import java.util.stream.Collectors;
-		import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;		
-		import de.tu.darmstadt.es.PatternMatchingEngine.viatra.VIATRAEngine;
+		import org.eclipse.viatra.query.runtime.exception.ViatraQueryException;
+		import de.tu.darmstadt.es.BiochemicalSimulationFramework.utils.FrameworkHelper;
+		import de.tu.darmstadt.es.biochemicalSimulationFramework.SimulatorConfigurator;
+		import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.PatternMatchingController;
 		import de.tu.darmstadt.es.biochemicalSimulationFramework.patternmatchingcontroller.patternmatchingengine.PatternMatchingEngine;
 		import de.tu.darmstadt.es.kappaStructure.KappaStructurePackage;
-		import de.tu.darmstadt.es.biochemicalSimulationFramework.utils.FrameworkHelper;
 		import «patternPackageString».*;
 		'''
 	}
@@ -91,8 +92,10 @@ class VIATRAMainTemplate extends AbstractVIATRAMainTemplate {
 			}
 			
 			public static void main(String[] args) throws ClassNotFoundException, ViatraQueryException {
-				loadDependencies();
-				PatternMatchingEngine pm = FrameworkHelper.instance().getOrCreatePatternMatcher(VIATRAEngine.class, PACKAGE_NAME);
+				loadDependencies();		
+				SimulatorConfigurator sc = FrameworkHelper.instance().getDefaultConfig(PACKAGE_NAME);
+				PatternMatchingController pmc  = sc.getPatternMatchingController();
+				PatternMatchingEngine pm = pmc.getPatternMatchingEngine();
 				pm.run(new Main().loadClasses(), MODEL_PATH);
 			}
 		'''
