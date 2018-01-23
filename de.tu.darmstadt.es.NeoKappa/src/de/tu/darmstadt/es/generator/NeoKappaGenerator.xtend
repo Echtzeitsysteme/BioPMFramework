@@ -3,14 +3,6 @@
  */
 package de.tu.darmstadt.es.generator
 
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IFileSystemAccess2
-import org.eclipse.xtext.generator.IGeneratorContext
-import de.tu.darmstadt.es.neoKappa.NKAFile
-import org.eclipse.emf.common.util.URI
-import de.tu.darmstadt.es.utils.NeoKappaUtil
-
-
 /**
  * Generates code from your model files on save.
  * 
@@ -18,26 +10,5 @@ import de.tu.darmstadt.es.utils.NeoKappaUtil
  */
 class NeoKappaGenerator extends AbstractNeoKappaGernerator {
 
-	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		val contents = resource.contents
-		
-		if (contents.size > 0) {
-			val file = contents.get(0)
-			if (file instanceof NKAFile) {
-				val resSet = resource.resourceSet
-				val rules = this.ruleConverter.convert(file)
-				val rulesUri = createURIFromResource(resource, "model", "ruleSet.xmi")
-				NeoKappaUtil.getInstance.save(rules, rulesUri, resSet) 
-				
-				generateTestViatra(rules,resource,resSet)
-				
-				val model = this.modelConverter.convert(file)
-				val modelUri = createURIFromResource(resource, "model", "kappaModel.xmi")
-				NeoKappaUtil.instance.save(model, modelUri, resSet)
-			}
-		}
-		
-	}
-	
 
 }

@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.xtext,
  org.eclipse.core.resources
 Export-Package: de.tu.darmstadt.es.xtext.utils.exceptions,
  de.tu.darmstadt.es.xtext.utils.scoping,
- de.tu.darmstadt.es.xtext.utils.scoping.utils,
  de.tu.darmstadt.es.xtext.utils.ui.highlighting,
  de.tu.darmstadt.es.xtext.utils.ui.highlighting.exceptions,
  de.tu.darmstadt.es.xtext.utils.ui.highlighting.rules,

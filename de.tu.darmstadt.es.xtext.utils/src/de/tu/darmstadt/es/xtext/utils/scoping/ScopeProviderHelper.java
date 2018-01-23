@@ -16,7 +16,7 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 
 import de.tu.darmstadt.es.xtext.utils.exceptions.CannotFindScopeException;
-import de.tu.darmstadt.es.xtext.utils.scoping.utils.ScopeUtil;
+import de.tu.darmstadt.es.xtext.utils.utils.ResourceUtil;
 
 public class ScopeProviderHelper <E extends EObject> {
 	private Map<URI, E> existingScopingRoots;
@@ -30,7 +30,7 @@ public class ScopeProviderHelper <E extends EObject> {
 	
 	public ScopeProviderHelper() {
 		init();
-		resourceSet = ScopeUtil.getInstance().getResourceSet("ecore");
+		resourceSet = ResourceUtil.getInstance().getResourceSet("ecore");
 	}
 	
 	private void init(){
